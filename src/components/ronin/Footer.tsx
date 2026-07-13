@@ -71,7 +71,7 @@ export function Footer() {
         {/* Columns */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <h4 className="text-display text-xl mb-4 text-primary">RONIN</h4>
+            <div className="text-2xl mb-4"><Logo /></div>
             <p className="text-sm text-muted-foreground">
               Streetwear premium para hombres urbanos que no necesitan permiso.
             </p>

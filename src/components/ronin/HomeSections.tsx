@@ -160,7 +160,7 @@ export function PromoBanner() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card md:to-card/0" />
         </div>
-        <div className="p-8 md:p-16 flex flex-col justify-center">
+        <div className="p-8 md:p-16 flex flex-col justify-center items-center text-center">
           <p className="text-primary text-xs uppercase tracking-[0.3em] mb-3">Drop exclusivo</p>
           <h2 className="text-display text-5xl md:text-7xl mb-4 leading-none">
             Hoodies &<br />
@@ -170,7 +170,7 @@ export function PromoBanner() {
             Cortes amplios, calidad premium, estampados que no se rinden. La armadura del samurái
             moderno.
           </p>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/collections/hoodies"
               className="bg-primary text-primary-foreground px-6 py-3 uppercase text-sm tracking-wider font-semibold hover:bg-primary/90 transition"
@@ -185,18 +185,6 @@ export function PromoBanner() {
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Ticker */}
-      <div className="border-t border-border py-4 overflow-hidden">
-        <div className="ticker-track text-display text-3xl md:text-4xl text-primary/80">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <span key={i} className="flex items-center gap-8">
-              RONIN <span className="text-foreground">·</span> DROP 01 <span className="text-foreground">·</span>
-            </span>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

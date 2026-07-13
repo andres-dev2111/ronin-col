@@ -63,33 +63,41 @@ export function Header({ onOpenCart }: HeaderProps) {
         )}
       >
         <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <button
-              className="md:hidden text-foreground"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Abrir menú"
-            >
-              <Menu className="h-6 w-6" />
-            </button>
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 md:h-20 gap-4">
+            {/* Left: nav (desktop) / menu (mobile) */}
+            <div className="flex items-center justify-start">
+              <button
+                className="md:hidden text-foreground"
+                onClick={() => setMobileOpen(true)}
+                aria-label="Abrir menú"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+              <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+                {nav.map((n) => (
+                  <Link
+                    key={n.to}
+                    to={n.to}
+                    activeProps={{ className: "text-primary" }}
+                    className="text-sm font-medium tracking-wider uppercase text-foreground/80 hover:text-primary transition"
+                  >
+                    {n.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
 
-            <Link to="/" aria-label="RONIN — Inicio" className="text-3xl md:text-4xl leading-none">
+            {/* Center: logo */}
+            <Link
+              to="/"
+              aria-label="RONIN — Inicio"
+              className="justify-self-center text-3xl md:text-4xl leading-none"
+            >
               <Logo />
             </Link>
 
-            <nav className="hidden md:flex items-center gap-8">
-              {nav.map((n) => (
-                <Link
-                  key={n.to}
-                  to={n.to}
-                  activeProps={{ className: "text-primary" }}
-                  className="text-sm font-medium tracking-wider uppercase text-foreground/80 hover:text-primary transition"
-                >
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="flex items-center gap-3 md:gap-5">
+            {/* Right: icons */}
+            <div className="flex items-center justify-end gap-3 md:gap-5">
               <button aria-label="Buscar" className="text-foreground/80 hover:text-primary transition">
                 <Search className="h-5 w-5" />
               </button>

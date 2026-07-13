@@ -72,9 +72,8 @@ export function Header({ onOpenCart }: HeaderProps) {
               <Menu className="h-6 w-6" />
             </button>
 
-            <Link to="/" className="text-display text-3xl md:text-4xl tracking-widest">
-              RONIN
-              <span className="text-primary">.</span>
+            <Link to="/" aria-label="RONIN — Inicio" className="text-3xl md:text-4xl leading-none">
+              <Logo />
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">

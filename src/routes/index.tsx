@@ -13,16 +13,16 @@ import { fetchProducts } from "@/lib/shopify";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "RONIN — Streetwear premium. Sin amo. Sin límites." },
+      { title: "RONIN — Streetwear premium. Sin límites." },
       {
         name: "description",
         content:
-          "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con algodón 320GSM. Sin amo. Sin límites.",
+          "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium. Sin límites.",
       },
       { property: "og:title", content: "RONIN — Streetwear premium" },
       {
         property: "og:description",
-        content: "Sin amo. Sin límites. Streetwear premium con algodón 320GSM.",
+        content: "Sin límites. Streetwear premium con calidad premium.",
       },
     ],
   }),

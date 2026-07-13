@@ -199,7 +199,7 @@ function ProductPage() {
               <TrustBadge icon={<Truck className="h-4 w-4" />} label="Envío gratis > $150k" />
               <TrustBadge icon={<ShieldCheck className="h-4 w-4" />} label="Pago 100% seguro" />
               <TrustBadge icon={<RotateCcw className="h-4 w-4" />} label="Cambios 30 días" />
-              <TrustBadge icon={<Package className="h-4 w-4" />} label="Algodón 320GSM" />
+              <TrustBadge icon={<Package className="h-4 w-4" />} label="Calidad Premium" />
             </div>
           </div>
         </div>

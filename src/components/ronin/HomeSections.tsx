@@ -63,7 +63,7 @@ export function Hero() {
 
 const CATEGORIES = [
   { title: "Esencial", subtitle: "Básicos elevados", handle: "camisetas-oversize", accent: "from-neutral-800 to-neutral-950" },
-  { title: "Premium", subtitle: "Hoodies 320GSM", handle: "hoodies", accent: "from-red-950 to-black" },
+  { title: "Premium", subtitle: "Hoodies premium", handle: "hoodies", accent: "from-red-950 to-black" },
   { title: "Nuevo", subtitle: "Recién llegado", handle: "new-arrivals", accent: "from-zinc-800 to-black" },
   { title: "Limited", subtitle: "Sets exclusivos", handle: "sets-ronin", accent: "from-neutral-900 to-red-950" },
 ];
@@ -167,7 +167,7 @@ export function PromoBanner() {
             <span className="text-primary">Oversize.</span>
           </h2>
           <p className="text-muted-foreground mb-8 max-w-md">
-            Cortes amplios, algodón 320GSM, estampados que no se rinden. La armadura del samurái
+            Cortes amplios, calidad premium, estampados que no se rinden. La armadura del samurái
             moderno.
           </p>
           <div className="flex gap-3">

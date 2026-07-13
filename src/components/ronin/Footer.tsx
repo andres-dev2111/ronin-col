@@ -112,7 +112,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border pt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} RONIN. Sin amo. Sin límites.</p>
+          <p>© {new Date().getFullYear()} RONIN. Sin límites.</p>
           <p>Hecho con actitud en Colombia.</p>
         </div>
       </div>

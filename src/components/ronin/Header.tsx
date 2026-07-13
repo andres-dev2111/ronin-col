@@ -3,11 +3,12 @@ import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 const ANNOUNCEMENTS = [
   "⚡ ENVÍO GRATIS en compras mayores a $150.000",
-  "🔥 NUEVA TEMPORADA — SIN AMO · SIN LÍMITES",
-  "🥋 ALGODÓN 320GSM · CALIDAD PREMIUM",
+  "🔥 NUEVA TEMPORADA — SIN LÍMITES",
+  "🥋 CALIDAD PREMIUM · CORTES OVERSIZE",
 ];
 
 export function AnnouncementBar() {

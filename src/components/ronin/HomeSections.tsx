@@ -185,6 +185,18 @@ export function PromoBanner() {
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* Ticker */}
+      <div className="border-t border-border py-4 overflow-hidden">
+        <div className="ticker-track text-display text-3xl md:text-4xl text-primary/80">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span key={i} className="flex items-center gap-8">
+              RONIN <span className="text-foreground">·</span> DROP 01 <span className="text-foreground">·</span>
+            </span>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

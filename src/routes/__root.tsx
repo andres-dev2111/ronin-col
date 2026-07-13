@@ -81,17 +81,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium.",
+          "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium. Sin límites.",
       },
       { name: "author", content: "RONIN" },
-      { property: "og:title", content: "RONIN — Streetwear premium" },
+      { property: "og:title", content: "RONIN — Streetwear premium. Sin límites." },
       {
         property: "og:description",
-        content: "Sin límites. Streetwear premium con calidad premium.",
+        content: "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium. Sin límites.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#0A0A0A" },
+      { name: "twitter:title", content: "RONIN — Streetwear premium. Sin límites." },
+      { name: "twitter:description", content: "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium. Sin límites." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2739577a-50f5-4490-8c98-d9fb7814eff9/id-preview-dfd93e32--6dad8c49-12fe-486e-ad66-0f88e10fb8eb.lovable.app-1783960096001.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2739577a-50f5-4490-8c98-d9fb7814eff9/id-preview-dfd93e32--6dad8c49-12fe-486e-ad66-0f88e10fb8eb.lovable.app-1783960096001.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

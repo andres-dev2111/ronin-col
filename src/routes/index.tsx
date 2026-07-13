@@ -19,10 +19,10 @@ export const Route = createFileRoute("/")({
         content:
           "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium. Sin límites.",
       },
-      { property: "og:title", content: "RONIN — Streetwear premium" },
+      { property: "og:title", content: "RONIN — Streetwear premium. Sin límites." },
       {
         property: "og:description",
-        content: "Sin límites. Streetwear premium con calidad premium.",
+        content: "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium. Sin límites.",
       },
     ],
   }),

@@ -18,8 +18,8 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-background/70 to-transparent" />
 
       <div className="relative z-10 h-full mx-auto max-w-7xl px-4 md:px-6 flex flex-col justify-end pb-16 md:pb-24">
-        <p className="text-primary text-sm md:text-base uppercase tracking-[0.3em] mb-4 fade-in">
-          Colección — Otoño / Invierno
+        <p className="text-primary text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.25em] md:tracking-[0.3em] mb-4 fade-in">
+          Colección · Otoño / Invierno
         </p>
         <h1 className="text-display text-6xl md:text-9xl leading-[0.85] mb-6 fade-in">
           Viste como
@@ -27,7 +27,7 @@ export function Hero() {
           <span className="text-primary">Ronin.</span>
         </h1>
         <p className="text-lg md:text-xl text-foreground/80 max-w-xl mb-8 fade-in">
-          Sin amo. Sin límites. Streetwear premium para hombres urbanos que no necesitan permiso.
+          Sin límites. Streetwear premium para hombres urbanos que no necesitan permiso.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 mb-12 fade-in">
           <Link
@@ -46,12 +46,12 @@ export function Hero() {
 
         <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-xl fade-in">
           {[
-            { n: "+5K", l: "Ronines" },
-            { n: "320g", l: "Algodón Premium" },
-            { n: "100%", l: "Sin amo" },
+            { n: "Premium", l: "Calidad garantizada" },
+            { n: "Únete", l: "A la comunidad Ronin" },
+            { n: "Sin límites", l: "Actitud urbana" },
           ].map((s) => (
             <div key={s.l}>
-              <p className="text-display text-3xl md:text-4xl text-primary">{s.n}</p>
+              <p className="text-display text-2xl md:text-3xl text-primary">{s.n}</p>
               <p className="text-xs uppercase tracking-wider text-muted-foreground">{s.l}</p>
             </div>
           ))}
@@ -63,7 +63,7 @@ export function Hero() {
 
 const CATEGORIES = [
   { title: "Esencial", subtitle: "Básicos elevados", handle: "camisetas-oversize", accent: "from-neutral-800 to-neutral-950" },
-  { title: "Premium", subtitle: "Hoodies 320GSM", handle: "hoodies", accent: "from-red-950 to-black" },
+  { title: "Premium", subtitle: "Hoodies premium", handle: "hoodies", accent: "from-red-950 to-black" },
   { title: "Nuevo", subtitle: "Recién llegado", handle: "new-arrivals", accent: "from-zinc-800 to-black" },
   { title: "Limited", subtitle: "Sets exclusivos", handle: "sets-ronin", accent: "from-neutral-900 to-red-950" },
 ];
@@ -167,7 +167,7 @@ export function PromoBanner() {
             <span className="text-primary">Oversize.</span>
           </h2>
           <p className="text-muted-foreground mb-8 max-w-md">
-            Cortes amplios, algodón 320GSM, estampados que no se rinden. La armadura del samurái
+            Cortes amplios, calidad premium, estampados que no se rinden. La armadura del samurái
             moderno.
           </p>
           <div className="flex gap-3">

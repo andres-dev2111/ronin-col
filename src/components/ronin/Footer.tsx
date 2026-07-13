@@ -2,18 +2,19 @@ import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Logo } from "./Logo";
 
 const TICKER_ITEMS = [
-  "SIN AMO",
   "SIN LÍMITES",
   "STREETWEAR PREMIUM",
   "RONIN",
-  "320GSM",
-  "SIN AMO",
+  "ÚNETE A LA COMUNIDAD",
+  "CALIDAD PREMIUM",
   "SIN LÍMITES",
   "STREETWEAR PREMIUM",
   "RONIN",
-  "320GSM",
+  "ÚNETE A LA COMUNIDAD",
+  "CALIDAD PREMIUM",
 ];
 
 export function Footer() {
@@ -70,7 +71,7 @@ export function Footer() {
         {/* Columns */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <h4 className="text-display text-xl mb-4 text-primary">RONIN</h4>
+            <div className="text-2xl mb-4"><Logo /></div>
             <p className="text-sm text-muted-foreground">
               Streetwear premium para hombres urbanos que no necesitan permiso.
             </p>
@@ -111,7 +112,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border pt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} RONIN. Sin amo. Sin límites.</p>
+          <p>© {new Date().getFullYear()} RONIN. Sin límites.</p>
           <p>Hecho con actitud en Colombia.</p>
         </div>
       </div>

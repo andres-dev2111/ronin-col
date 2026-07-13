@@ -77,17 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "RONIN — Streetwear premium. Sin amo. Sin límites." },
+      { title: "RONIN — Streetwear premium. Sin límites." },
       {
         name: "description",
         content:
-          "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con algodón 320GSM.",
+          "Streetwear premium para hombres urbanos. Hoodies, camisetas oversize y sets con calidad premium.",
       },
       { name: "author", content: "RONIN" },
       { property: "og:title", content: "RONIN — Streetwear premium" },
       {
         property: "og:description",
-        content: "Sin amo. Sin límites. Streetwear premium con algodón 320GSM.",
+        content: "Sin límites. Streetwear premium con calidad premium.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

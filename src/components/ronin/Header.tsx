@@ -3,11 +3,12 @@ import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 const ANNOUNCEMENTS = [
   "⚡ ENVÍO GRATIS en compras mayores a $150.000",
-  "🔥 NUEVA TEMPORADA — SIN AMO · SIN LÍMITES",
-  "🥋 ALGODÓN 320GSM · CALIDAD PREMIUM",
+  "🔥 NUEVA TEMPORADA — SIN LÍMITES",
+  "🥋 CALIDAD PREMIUM · CORTES OVERSIZE",
 ];
 
 export function AnnouncementBar() {
@@ -71,9 +72,8 @@ export function Header({ onOpenCart }: HeaderProps) {
               <Menu className="h-6 w-6" />
             </button>
 
-            <Link to="/" className="text-display text-3xl md:text-4xl tracking-widest">
-              RONIN
-              <span className="text-primary">.</span>
+            <Link to="/" aria-label="RONIN — Inicio" className="text-3xl md:text-4xl leading-none">
+              <Logo />
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">
@@ -117,8 +117,8 @@ export function Header({ onOpenCart }: HeaderProps) {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 bg-background md:hidden fade-in">
           <div className="flex items-center justify-between px-4 h-16 border-b border-border">
-            <Link to="/" onClick={() => setMobileOpen(false)} className="text-display text-3xl">
-              RONIN<span className="text-primary">.</span>
+            <Link to="/" onClick={() => setMobileOpen(false)} aria-label="RONIN — Inicio" className="text-3xl leading-none">
+              <Logo />
             </Link>
             <button onClick={() => setMobileOpen(false)} aria-label="Cerrar">
               <X className="h-6 w-6" />

@@ -2,18 +2,19 @@ import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Logo } from "./Logo";
 
 const TICKER_ITEMS = [
-  "SIN AMO",
   "SIN LÍMITES",
   "STREETWEAR PREMIUM",
   "RONIN",
-  "320GSM",
-  "SIN AMO",
+  "ÚNETE A LA COMUNIDAD",
+  "CALIDAD PREMIUM",
   "SIN LÍMITES",
   "STREETWEAR PREMIUM",
   "RONIN",
-  "320GSM",
+  "ÚNETE A LA COMUNIDAD",
+  "CALIDAD PREMIUM",
 ];
 
 export function Footer() {

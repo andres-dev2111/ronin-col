@@ -236,7 +236,7 @@ function ProductPage() {
 
             {/* Trust row */}
             <div className="grid grid-cols-3 gap-3 mt-6 text-[10px] uppercase tracking-wider text-muted-foreground">
-              <div className="flex items-center gap-1.5"><Truck className="h-3.5 w-3.5 text-primary" /> Envío > $150k</div>
+              <div className="flex items-center gap-1.5"><Truck className="h-3.5 w-3.5 text-primary" /> Envío gratis +$150k</div>
               <div className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-primary" /> Pago seguro</div>
               <div className="flex items-center gap-1.5"><RotateCcw className="h-3.5 w-3.5 text-primary" /> Cambios 30d</div>
             </div>

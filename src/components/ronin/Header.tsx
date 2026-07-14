@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
+import { SearchOverlay } from "./SearchOverlay";
+import { SHOPIFY_STORE_PERMANENT_DOMAIN } from "@/lib/shopify";
 
 const ANNOUNCEMENTS = [
   "⚡ ENVÍO GRATIS en compras mayores a $150.000",
@@ -30,9 +32,12 @@ interface HeaderProps {
   onOpenCart: () => void;
 }
 
+const SHOPIFY_ACCOUNT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/account`;
+
 export function Header({ onOpenCart }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const totalItems = useCartStore((s) =>
     s.items.reduce((sum, i) => sum + i.quantity, 0),
   );
@@ -45,10 +50,8 @@ export function Header({ onOpenCart }: HeaderProps) {
 
   const nav = [
     { to: "/collections/all", label: "Shop" },
-    { to: "/collections/hoodies", label: "Hoodies" },
-    { to: "/collections/camisetas-oversize", label: "Camisetas" },
-    { to: "/collections/sets-ronin", label: "Sets" },
-    { to: "/lookbook", label: "Lookbook" },
+    { to: "/collections/sets-ronin", label: "Drops" },
+    { to: "/lookbook", label: "Comunidad" },
   ];
 
   return (
@@ -57,9 +60,7 @@ export function Header({ onOpenCart }: HeaderProps) {
       <header
         className={cn(
           "sticky top-0 z-40 w-full transition-all duration-300 border-b border-border/50",
-          scrolled
-            ? "bg-background/85 backdrop-blur-md"
-            : "bg-background/95",
+          scrolled ? "bg-background/85 backdrop-blur-md" : "bg-background/95",
         )}
       >
         <div className="mx-auto max-w-7xl px-4 md:px-6">
@@ -79,7 +80,7 @@ export function Header({ onOpenCart }: HeaderProps) {
                     key={n.to}
                     to={n.to}
                     activeProps={{ className: "text-primary" }}
-                    className="text-sm font-medium tracking-wider uppercase text-foreground/80 hover:text-primary transition"
+                    className="text-sm font-medium tracking-[0.2em] uppercase text-foreground/80 hover:text-primary transition"
                   >
                     {n.label}
                   </Link>
@@ -98,12 +99,22 @@ export function Header({ onOpenCart }: HeaderProps) {
 
             {/* Right: icons */}
             <div className="flex items-center justify-end gap-3 md:gap-5">
-              <button aria-label="Buscar" className="text-foreground/80 hover:text-primary transition">
+              <button
+                aria-label="Buscar"
+                onClick={() => setSearchOpen(true)}
+                className="text-foreground/80 hover:text-primary transition"
+              >
                 <Search className="h-5 w-5" />
               </button>
-              <button aria-label="Cuenta" className="text-foreground/80 hover:text-primary transition hidden sm:block">
+              <a
+                aria-label="Mi cuenta"
+                href={SHOPIFY_ACCOUNT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/80 hover:text-primary transition hidden sm:block"
+              >
                 <User className="h-5 w-5" />
-              </button>
+              </a>
               <button
                 aria-label="Carrito"
                 onClick={onOpenCart}
@@ -143,9 +154,19 @@ export function Header({ onOpenCart }: HeaderProps) {
                 {n.label}
               </Link>
             ))}
+            <a
+              href={SHOPIFY_ACCOUNT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-display text-3xl tracking-wider hover:text-primary"
+            >
+              Mi cuenta
+            </a>
           </nav>
         </div>
       )}
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

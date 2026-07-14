@@ -81,9 +81,9 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link to="/collections/all" className="hover:text-primary">Todo</Link></li>
               <li><Link to="/collections/hoodies" className="hover:text-primary">Hoodies</Link></li>
-              <li><Link to="/collections/camisetas-oversize" className="hover:text-primary">Camisetas</Link></li>
-              <li><Link to="/collections/sets-ronin" className="hover:text-primary">Sets</Link></li>
-            </ul>
+              <li><Link to="/collections/camisetas-oversize" className="hover:text-primary">Oversize</Link></li>
+              <li><Link to="/collections/sets-ronin" className="hover:text-primary">Drops</Link></li>
+              <li><Link to="/lookbook" className="hover:text-primary">Comunidad</Link></li>
           </div>
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Ayuda</h4>

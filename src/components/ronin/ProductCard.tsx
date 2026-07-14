@@ -4,6 +4,7 @@ import { Loader2, Plus } from "lucide-react";
 import type { ShopifyProduct } from "@/lib/shopify";
 import { formatPrice } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { WishlistButton } from "./WishlistButton";
 
 interface Props {
   product: ShopifyProduct;
@@ -78,6 +79,14 @@ export function ProductCard({ product }: Props) {
             </span>
           )}
         </div>
+
+        {/* Wishlist */}
+        <WishlistButton
+          productId={p.id}
+          productTitle={p.title}
+          size="sm"
+          className="absolute top-3 right-3"
+        />
 
         {/* Quick add */}
         <button

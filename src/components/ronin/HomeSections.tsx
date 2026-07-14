@@ -6,7 +6,7 @@ import { ProductCard } from "./ProductCard";
 
 export function Hero() {
   return (
-    <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden">
+    <section className="relative h-[88vh] min-h-[560px] w-full overflow-hidden">
       <img
         src={heroImg}
         alt="Ronin en la ciudad"
@@ -14,11 +14,11 @@ export function Hero() {
         width={1920}
         height={1200}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/70 to-transparent" />
+      {/* subtle bottom vignette for CTA legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/25 to-transparent" />
 
-      <div className="relative z-10 h-full mx-auto max-w-7xl px-4 md:px-6 flex flex-col justify-end pb-16 md:pb-24">
-        <p className="text-primary text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.25em] md:tracking-[0.3em] mb-4 fade-in">
+      <div className="relative z-10 h-full mx-auto max-w-7xl px-4 md:px-6 flex flex-col justify-end pb-14 md:pb-20">
+        <p className="text-primary text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.35em] mb-4 fade-in">
           Colección · Otoño / Invierno
         </p>
         <h1 className="text-display text-6xl md:text-9xl leading-[0.85] mb-6 fade-in">
@@ -26,35 +26,19 @@ export function Hero() {
           <br />
           <span className="text-primary">Ronin.</span>
         </h1>
-        <p className="text-lg md:text-xl text-foreground/80 max-w-xl mb-8 fade-in">
-          Sin límites. Streetwear premium para hombres urbanos que no necesitan permiso.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 mb-12 fade-in">
+        <div className="flex flex-col sm:flex-row gap-3 fade-in">
           <Link
             to="/collections/all"
-            className="bg-primary text-primary-foreground px-8 py-4 font-semibold uppercase tracking-wider text-sm text-center hover:bg-primary/90 transition"
+            className="bg-primary text-primary-foreground px-8 py-4 font-semibold uppercase tracking-[0.2em] text-sm text-center hover:bg-primary/90 transition"
           >
             Comprar ahora
           </Link>
           <Link
             to="/lookbook"
-            className="border border-foreground/40 text-foreground px-8 py-4 font-semibold uppercase tracking-wider text-sm text-center hover:border-primary hover:text-primary transition"
+            className="border border-foreground/40 text-foreground px-8 py-4 font-semibold uppercase tracking-[0.2em] text-sm text-center hover:border-primary hover:text-primary transition"
           >
-            Ver lookbook
+            Ver comunidad
           </Link>
-        </div>
-
-        <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-xl fade-in">
-          {[
-            { n: "Premium", l: "Calidad garantizada" },
-            { n: "Únete", l: "A la comunidad Ronin" },
-            { n: "Sin límites", l: "Actitud urbana" },
-          ].map((s) => (
-            <div key={s.l}>
-              <p className="text-display text-2xl md:text-3xl text-primary">{s.n}</p>
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">{s.l}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -62,39 +46,57 @@ export function Hero() {
 }
 
 const CATEGORIES = [
-  { title: "Esencial", subtitle: "Básicos elevados", handle: "camisetas-oversize", accent: "from-neutral-800 to-neutral-950" },
-  { title: "Premium", subtitle: "Hoodies premium", handle: "hoodies", accent: "from-red-950 to-black" },
-  { title: "Nuevo", subtitle: "Recién llegado", handle: "new-arrivals", accent: "from-zinc-800 to-black" },
-  { title: "Limited", subtitle: "Sets exclusivos", handle: "sets-ronin", accent: "from-neutral-900 to-red-950" },
+  {
+    title: "Todos",
+    handle: "all",
+    gradient: "from-neutral-800 via-neutral-900 to-black",
+  },
+  {
+    title: "Hoodies",
+    handle: "hoodies",
+    gradient: "from-red-950 via-neutral-900 to-black",
+  },
+  {
+    title: "Oversize",
+    handle: "camisetas-oversize",
+    gradient: "from-zinc-800 via-neutral-900 to-black",
+  },
+  {
+    title: "Básicas / Esenciales",
+    handle: "new-arrivals",
+    gradient: "from-stone-800 via-neutral-900 to-black",
+  },
 ];
 
 export function CategoryGrid() {
   return (
     <section className="mx-auto max-w-7xl px-4 md:px-6 py-20">
       <div className="mb-10 text-center">
-        <p className="text-primary text-xs uppercase tracking-[0.3em] mb-2">Colecciones</p>
+        <p className="text-primary text-xs uppercase tracking-[0.35em] mb-2">Categorías</p>
         <h2 className="text-display text-5xl md:text-7xl">Elige tu armadura</h2>
+        <span className="block mx-auto mt-3 h-[2px] w-14 bg-primary" />
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {CATEGORIES.map((c) => (
           <Link
             key={c.handle}
             to="/collections/$handle"
             params={{ handle: c.handle }}
-            className={`group relative aspect-[3/4] overflow-hidden bg-gradient-to-br ${c.accent} border border-border`}
+            className="group block"
           >
-            <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,var(--color-primary)_0%,transparent_60%)]" />
-            <div className="absolute inset-0 flex flex-col justify-end p-5">
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                {c.subtitle}
-              </p>
-              <h3 className="text-display text-4xl md:text-5xl group-hover:text-primary transition-colors">
-                {c.title}
-              </h3>
-              <span className="mt-3 text-xs uppercase tracking-wider text-foreground/60 group-hover:text-primary transition">
-                Explorar →
-              </span>
+            <div
+              className={`relative aspect-[3/4] overflow-hidden bg-gradient-to-br ${c.gradient} border border-border`}
+            >
+              <div className="absolute inset-0 opacity-30 group-hover:opacity-60 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,var(--color-primary)_0%,transparent_65%)]" />
+              <div className="absolute inset-x-0 bottom-4 text-center">
+                <span className="text-[10px] uppercase tracking-widest text-primary/80">
+                  Explorar
+                </span>
+              </div>
             </div>
+            <p className="mt-4 text-center text-sm uppercase tracking-[0.25em] font-medium group-hover:text-primary transition">
+              {c.title}
+            </p>
           </Link>
         ))}
       </div>
@@ -172,16 +174,16 @@ export function PromoBanner() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              to="/collections/hoodies"
+              to="/collections/sets-ronin"
               className="bg-primary text-primary-foreground px-6 py-3 uppercase text-sm tracking-wider font-semibold hover:bg-primary/90 transition"
             >
-              Ver hoodies
+              Ver drops
             </Link>
             <Link
-              to="/collections/camisetas-oversize"
+              to="/collections/all"
               className="border border-border px-6 py-3 uppercase text-sm tracking-wider font-semibold hover:border-primary hover:text-primary transition"
             >
-              Ver oversize
+              Ver todo
             </Link>
           </div>
         </div>
@@ -213,7 +215,7 @@ export function LookbookTeaser() {
       <div className="flex items-end justify-between mb-10">
         <div>
           <p className="text-primary text-xs uppercase tracking-[0.3em] mb-2">La comunidad</p>
-          <h2 className="text-display text-4xl md:text-6xl">Lookbook</h2>
+          <h2 className="text-display text-4xl md:text-6xl">Comunidad Ronin</h2>
         </div>
         <Link
           to="/lookbook"

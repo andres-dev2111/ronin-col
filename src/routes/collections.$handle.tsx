@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/ronin/SiteShell";
 import { ProductCard } from "@/components/ronin/ProductCard";
-import { EmptyProducts } from "@/components/ronin/HomeSections";
+import { EmptyProducts, CategoryGrid } from "@/components/ronin/HomeSections";
 import { fetchCollection, fetchProducts } from "@/lib/shopify";
 
 export const Route = createFileRoute("/collections/$handle")({
@@ -53,6 +53,7 @@ function CollectionPage() {
 
   return (
     <SiteShell>
+      {handle === "all" && <CategoryGrid />}
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-16">
         <p className="text-primary text-xs uppercase tracking-[0.3em] mb-2">Colección</p>
         <h1 className="text-display text-5xl md:text-7xl mb-10">

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram } from "lucide-react";
+import { Facebook, Instagram, Youtube, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Logo } from "./Logo";
@@ -10,12 +10,16 @@ const TICKER_ITEMS = [
   "RONIN",
   "ÚNETE A LA COMUNIDAD",
   "CALIDAD PREMIUM",
-  "SIN LÍMITES",
-  "STREETWEAR PREMIUM",
-  "RONIN",
-  "ÚNETE A LA COMUNIDAD",
-  "CALIDAD PREMIUM",
 ];
+
+// TikTok icon (lucide has no TikTok, inline SVG)
+function TikTok({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M19.6 6.3a5.3 5.3 0 0 1-3.3-1.2 5.3 5.3 0 0 1-1.9-3.3h-3.3v13.4a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V9.1a6.1 6.1 0 1 0 5.2 6V9.4a8.6 8.6 0 0 0 5.2 1.7V7.8c0-.5 0-1-.1-1.5Z" />
+    </svg>
+  );
+}
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -24,7 +28,7 @@ export function Footer() {
       {/* Ticker */}
       <div className="border-y border-border py-6 overflow-hidden bg-background">
         <div className="ticker-track text-display text-4xl md:text-6xl">
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((t, i) => (
+          {[...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS].map((t, i) => (
             <span key={i} className="flex items-center gap-12">
               {t}
               <span className="text-primary">·</span>
@@ -33,7 +37,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 md:px-6 py-16">
+      <div className="mx-auto max-w-[1600px] px-4 md:px-8 py-16">
         {/* Newsletter */}
         <div className="max-w-2xl mx-auto text-center mb-16">
           <h3 className="text-display text-4xl md:text-5xl mb-3">
@@ -68,47 +72,81 @@ export function Footer() {
           </form>
         </div>
 
-        {/* Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        {/* Columns: Brand · Contact · Follow · Help */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          {/* Brand */}
           <div>
-            <div className="text-2xl mb-4"><Logo /></div>
+            <div className="text-4xl mb-4"><Logo /></div>
             <p className="text-sm text-muted-foreground">
-              Streetwear premium para hombres urbanos que no necesitan permiso.
+              Streetwear premium para hombres urbanos. Sin límites.
             </p>
           </div>
+
+          {/* Contacto */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Tienda</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/collections/all" className="hover:text-primary">Todo</Link></li>
-              <li><Link to="/collections/hoodies" className="hover:text-primary">Hoodies</Link></li>
-              <li><Link to="/collections/camisetas-oversize" className="hover:text-primary">Oversize</Link></li>
-              <li><Link to="/collections/sets-ronin" className="hover:text-primary">Drops</Link></li>
-              <li><Link to="/lookbook" className="hover:text-primary">Comunidad</Link></li>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.2em] mb-5">Contacto</h4>
+            <ul className="space-y-4 text-sm text-muted-foreground">
+              <li className="flex items-start gap-3">
+                <MessageCircle className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" className="hover:text-primary">
+                  WhatsApp: +57 300 123 4567
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                <span>Atención al cliente:<br />01 8000 123 456</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                <a href="mailto:servicioalcliente@ronin.co" className="hover:text-primary break-all">
+                  servicioalcliente@ronin.co
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                <span>Carrera 48 #52 sur 81<br />Sabaneta, Antioquia — Colombia</span>
+              </li>
             </ul>
           </div>
+
+          {/* Síguenos */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Ayuda</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.2em] mb-5">Síguenos</h4>
+            <div className="flex gap-3">
+              {[
+                { href: "https://facebook.com", label: "Facebook", Icon: Facebook },
+                { href: "https://instagram.com", label: "Instagram", Icon: Instagram },
+                { href: "https://youtube.com", label: "YouTube", Icon: Youtube },
+                { href: "https://tiktok.com", label: "TikTok", Icon: TikTok },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="h-11 w-11 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-primary hover:border-primary hover:text-primary-foreground transition"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground mt-4">
+              @ronin.oficial — Comparte tu look con <span className="text-primary">#SoyRonin</span>
+            </p>
+          </div>
+
+          {/* Ayuda / Legal */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.2em] mb-5">Ayuda</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><Link to="/collections/all" className="hover:text-primary">Tienda</Link></li>
+              <li><Link to="/lookbook" className="hover:text-primary">Comunidad</Link></li>
               <li><a href="#" className="hover:text-primary">Envíos</a></li>
               <li><a href="#" className="hover:text-primary">Devoluciones</a></li>
               <li><a href="#" className="hover:text-primary">Guía de tallas</a></li>
-              <li><a href="#" className="hover:text-primary">Contacto</a></li>
+              <li><a href="#" className="hover:text-primary">Términos y privacidad</a></li>
             </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary">Términos</a></li>
-              <li><a href="#" className="hover:text-primary">Privacidad</a></li>
-            </ul>
-            <div className="flex gap-3 mt-4">
-              <a href="#" aria-label="Instagram" className="text-muted-foreground hover:text-primary">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" aria-label="TikTok" className="text-muted-foreground hover:text-primary text-lg font-bold">
-                TT
-              </a>
-            </div>
           </div>
         </div>
 

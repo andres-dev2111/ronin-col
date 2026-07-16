@@ -221,6 +221,16 @@ export async function createShopifyCart(item: CartItemInput) {
   return { cartId: cart.id, checkoutUrl: formatCheckoutUrl(cart.checkoutUrl), lineId };
 }
 
+/**
+ * Quick checkout: creates a stand-alone cart for a single variant and returns
+ * the checkout URL. Does NOT touch the persistent cart store — perfect for
+ * "Buy it now / Pagar ahora" flows.
+ */
+export async function createBuyNowCheckout(variantId: string, quantity = 1): Promise<string | null> {
+  const result = await createShopifyCart({ variantId, quantity });
+  return result?.checkoutUrl ?? null;
+}
+
 export async function addLineToShopifyCart(cartId: string, item: CartItemInput) {
   const data = await storefrontApiRequest(CART_LINES_ADD_MUTATION, {
     cartId,

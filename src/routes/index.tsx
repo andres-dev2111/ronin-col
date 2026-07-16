@@ -8,9 +8,7 @@ import {
   PromoBanner,
   LookbookTeaser,
 } from "@/components/ronin/HomeSections";
-import { GetTheLook } from "@/components/ronin/GetTheLook";
 import { fetchProducts } from "@/lib/shopify";
-import heroImg from "@/assets/ronin-hero.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,9 +41,7 @@ function Index() {
       <CategoryGrid />
       <FeaturedProducts products={products} />
       <PromoBanner />
-      <GetTheLook heroImage={heroImg} heroAlt="Look Ronin urbano" handle="@RONIN.OFICIAL" />
       <LookbookTeaser />
     </SiteShell>
   );
 }
-

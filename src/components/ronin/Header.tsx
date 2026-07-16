@@ -63,18 +63,18 @@ export function Header({ onOpenCart }: HeaderProps) {
           scrolled ? "bg-background/85 backdrop-blur-md" : "bg-background/95",
         )}
       >
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 md:h-20 gap-4">
+        <div className="mx-auto max-w-[1600px] px-4 md:px-8">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-20 md:h-24 lg:h-28 gap-4">
             {/* Left: nav (desktop) / menu (mobile) */}
             <div className="flex items-center justify-start">
               <button
-                className="md:hidden text-foreground"
+                className="lg:hidden text-foreground"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Abrir menú"
               >
                 <Menu className="h-6 w-6" />
               </button>
-              <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+              <nav className="hidden lg:flex items-center gap-8">
                 {nav.map((n) => (
                   <Link
                     key={n.to}
@@ -88,23 +88,23 @@ export function Header({ onOpenCart }: HeaderProps) {
               </nav>
             </div>
 
-            {/* Center: logo */}
+            {/* Center: logo (much bigger) */}
             <Link
               to="/"
               aria-label="RONIN — Inicio"
-              className="justify-self-center text-3xl md:text-4xl leading-none"
+              className="justify-self-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-none"
             >
               <Logo />
             </Link>
 
             {/* Right: icons */}
-            <div className="flex items-center justify-end gap-3 md:gap-5">
+            <div className="flex items-center justify-end gap-4 md:gap-6">
               <button
                 aria-label="Buscar"
                 onClick={() => setSearchOpen(true)}
                 className="text-foreground/80 hover:text-primary transition"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-6 w-6" />
               </button>
               <a
                 aria-label="Mi cuenta"
@@ -113,16 +113,16 @@ export function Header({ onOpenCart }: HeaderProps) {
                 rel="noopener noreferrer"
                 className="text-foreground/80 hover:text-primary transition hidden sm:block"
               >
-                <User className="h-5 w-5" />
+                <User className="h-6 w-6" />
               </a>
               <button
                 aria-label="Carrito"
                 onClick={onOpenCart}
                 className="relative text-foreground/80 hover:text-primary transition"
               >
-                <ShoppingBag className="h-5 w-5" />
+                <ShoppingBag className="h-6 w-6" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
                     {totalItems}
                   </span>
                 )}
@@ -134,9 +134,9 @@ export function Header({ onOpenCart }: HeaderProps) {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-background md:hidden fade-in">
-          <div className="flex items-center justify-between px-4 h-16 border-b border-border">
-            <Link to="/" onClick={() => setMobileOpen(false)} aria-label="RONIN — Inicio" className="text-3xl leading-none">
+        <div className="fixed inset-0 z-50 bg-background lg:hidden fade-in">
+          <div className="flex items-center justify-between px-4 h-20 border-b border-border">
+            <Link to="/" onClick={() => setMobileOpen(false)} aria-label="RONIN — Inicio" className="text-4xl leading-none">
               <Logo />
             </Link>
             <button onClick={() => setMobileOpen(false)} aria-label="Cerrar">

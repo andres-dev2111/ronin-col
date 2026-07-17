@@ -83,25 +83,24 @@ interface FeaturedProps {
   products: ShopifyProduct[];
 }
 
-/** "Lo nuevo" — huge product cards, full-bleed layout */
+/** "Lo nuevo" — full-bleed maxed product grid (Dynamo style) */
 export function FeaturedProducts({ products }: FeaturedProps) {
   return (
-    <section className="mx-auto max-w-[1600px] px-4 md:px-8 py-20">
-      <div className="flex items-end justify-between mb-8">
-        <h2 className="text-display text-3xl md:text-4xl leading-none tracking-wide">Lo nuevo</h2>
+    <section className="w-full py-12 md:py-16">
+      <div className="flex items-end justify-between mb-6 px-2 md:px-3">
+        <h2 className="text-display text-2xl md:text-4xl leading-none tracking-wide">Lo nuevo</h2>
         <Link
           to="/collections/all"
-          className="hidden md:inline-flex text-[11px] uppercase tracking-[0.25em] font-medium underline underline-offset-4 hover:text-primary"
+          className="text-[10px] uppercase tracking-[0.25em] font-medium underline underline-offset-4 hover:text-primary"
         >
           Ver todo
         </Link>
       </div>
 
-
       {products.length === 0 ? (
-        <EmptyProducts />
+        <div className="px-4"><EmptyProducts /></div>
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-1.5">
           {products.slice(0, 8).map((p) => (
             <ProductCard key={p.node.id} product={p} />
           ))}
@@ -110,6 +109,7 @@ export function FeaturedProducts({ products }: FeaturedProps) {
     </section>
   );
 }
+
 
 export function EmptyProducts() {
   return (

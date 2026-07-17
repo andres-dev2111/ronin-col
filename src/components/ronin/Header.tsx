@@ -138,9 +138,10 @@ export function Header({ onOpenCart }: HeaderProps) {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 bg-background lg:hidden fade-in">
           <div className="flex items-center justify-between px-4 h-20 border-b border-border">
-            <Link to="/" onClick={() => setMobileOpen(false)} aria-label="RONIN — Inicio" className="text-4xl leading-none">
+            <Link to="/" onClick={() => setMobileOpen(false)} aria-label="RONIN — Inicio" className="h-10 flex items-center">
               <Logo />
             </Link>
+
             <button onClick={() => setMobileOpen(false)} aria-label="Cerrar">
               <X className="h-6 w-6" />
             </button>

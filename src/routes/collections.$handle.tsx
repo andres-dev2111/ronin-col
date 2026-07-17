@@ -54,28 +54,31 @@ function CollectionPage() {
   return (
     <SiteShell>
       {handle === "all" && <CategoryGrid />}
-      <div className="mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-16">
-        <p className="text-primary text-xs uppercase tracking-[0.3em] mb-2">Colección</p>
-        <h1 className="text-display text-5xl md:text-7xl mb-10">
-          {data?.title ?? titleFor(handle)}
-        </h1>
+      <div className="w-full py-8 md:py-12">
+        <div className="px-2 md:px-3 mb-6">
+          <p className="text-primary text-[10px] uppercase tracking-[0.3em] mb-1">Colección</p>
+          <h1 className="text-display text-3xl md:text-5xl">
+            {data?.title ?? titleFor(handle)}
+          </h1>
+        </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-1.5">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="aspect-[3/4] bg-card animate-pulse" />
             ))}
           </div>
         ) : (data?.products.length ?? 0) === 0 ? (
-          <EmptyProducts />
+          <div className="px-4"><EmptyProducts /></div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-1.5">
             {data!.products.map((p: import("@/lib/shopify").ShopifyProduct) => (
               <ProductCard key={p.node.id} product={p} />
             ))}
           </div>
         )}
       </div>
+
     </SiteShell>
   );
 }

@@ -47,8 +47,9 @@ export function CategoryGrid() {
   return (
     <section className="mx-auto max-w-[1600px] px-4 md:px-8 py-20">
       <div className="mb-10">
-        <p className="text-primary text-xs uppercase tracking-[0.35em] mb-2">Categorías</p>
-        <h2 className="text-display text-5xl md:text-7xl">Elige tu armadura</h2>
+        <p className="text-primary text-[10px] uppercase tracking-[0.35em] mb-2">Categorías</p>
+        <h2 className="text-display text-2xl md:text-3xl tracking-wide">Elige tu armadura</h2>
+
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         {CATEGORIES.map((c) => (
@@ -67,9 +68,10 @@ export function CategoryGrid() {
               />
               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition" />
             </div>
-            <p className="mt-4 text-center text-sm md:text-base uppercase tracking-[0.3em] font-semibold group-hover:text-primary transition">
+            <p className="mt-3 text-center text-[11px] md:text-xs uppercase tracking-[0.3em] font-medium group-hover:text-primary transition">
               {c.title}
             </p>
+
           </Link>
         ))}
       </div>
@@ -85,15 +87,16 @@ interface FeaturedProps {
 export function FeaturedProducts({ products }: FeaturedProps) {
   return (
     <section className="mx-auto max-w-[1600px] px-4 md:px-8 py-20">
-      <div className="flex items-end justify-between mb-10">
-        <h2 className="text-display text-6xl md:text-8xl leading-none">Lo nuevo</h2>
+      <div className="flex items-end justify-between mb-8">
+        <h2 className="text-display text-3xl md:text-4xl leading-none tracking-wide">Lo nuevo</h2>
         <Link
           to="/collections/all"
-          className="hidden md:inline-flex text-sm uppercase tracking-[0.25em] font-semibold underline underline-offset-4 hover:text-primary"
+          className="hidden md:inline-flex text-[11px] uppercase tracking-[0.25em] font-medium underline underline-offset-4 hover:text-primary"
         >
           Ver todo
         </Link>
       </div>
+
 
       {products.length === 0 ? (
         <EmptyProducts />

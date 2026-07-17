@@ -64,8 +64,9 @@ export function Header({ onOpenCart }: HeaderProps) {
         )}
       >
         <div className="mx-auto max-w-[1600px] px-4 md:px-8">
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-20 md:h-24 lg:h-28 gap-4">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 md:h-20 gap-4">
             {/* Left: nav (desktop) / menu (mobile) */}
+
             <div className="flex items-center justify-start">
               <button
                 className="lg:hidden text-foreground"
@@ -92,10 +93,11 @@ export function Header({ onOpenCart }: HeaderProps) {
             <Link
               to="/"
               aria-label="RONIN — Inicio"
-              className="justify-self-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-none"
+              className="justify-self-center h-10 md:h-12 lg:h-14 flex items-center"
             >
               <Logo />
             </Link>
+
 
             {/* Right: icons */}
             <div className="flex items-center justify-end gap-4 md:gap-6">

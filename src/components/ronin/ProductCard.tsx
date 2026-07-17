@@ -48,7 +48,7 @@ export function ProductCard({ product }: Props) {
       params={{ handle: p.handle }}
       className="group block"
     >
-      <div className="relative aspect-[3/4] bg-card overflow-hidden mb-3">
+      <div className="relative aspect-[3/4] bg-card overflow-hidden mb-1.5">
         {image && (
           <>
             <img

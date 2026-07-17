@@ -45,13 +45,12 @@ const CATEGORIES = [
 
 export function CategoryGrid() {
   return (
-    <section className="mx-auto max-w-[1600px] px-4 md:px-8 py-20">
-      <div className="mb-10">
-        <p className="text-primary text-[10px] uppercase tracking-[0.35em] mb-2">Categorías</p>
-        <h2 className="text-display text-2xl md:text-3xl tracking-wide">Elige tu armadura</h2>
-
+    <section className="w-full py-12 md:py-16">
+      <div className="mb-6 px-2 md:px-3">
+        <p className="text-primary text-[10px] uppercase tracking-[0.35em] mb-1">Categorías</p>
+        <h2 className="text-display text-2xl md:text-4xl tracking-wide">Elige tu armadura</h2>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-1.5">
         {CATEGORIES.map((c) => (
           <Link
             key={c.handle}
@@ -66,18 +65,17 @@ export function CategoryGrid() {
                 loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition" />
             </div>
-            <p className="mt-3 text-center text-[11px] md:text-xs uppercase tracking-[0.3em] font-medium group-hover:text-primary transition">
+            <p className="mt-2 text-center text-[10px] uppercase tracking-[0.3em] font-medium group-hover:text-primary transition">
               {c.title}
             </p>
-
           </Link>
         ))}
       </div>
     </section>
   );
 }
+
 
 interface FeaturedProps {
   products: ShopifyProduct[];

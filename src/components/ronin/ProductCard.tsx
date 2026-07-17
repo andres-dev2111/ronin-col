@@ -104,14 +104,14 @@ export function ProductCard({ product }: Props) {
         </button>
       </div>
 
-      <div className="flex items-start justify-between gap-2">
-        <h3 className="text-sm font-medium leading-tight group-hover:text-primary transition">
+      <div className="flex items-start justify-between gap-2 px-1 pb-1">
+        <h3 className="text-[11px] md:text-xs font-normal leading-tight text-foreground/80 group-hover:text-primary transition line-clamp-1">
           {p.title}
         </h3>
         <div className="text-right flex-shrink-0">
-          <p className="text-sm font-semibold">{formatPrice(price.amount, price.currencyCode)}</p>
+          <p className="text-[11px] md:text-xs font-medium">{formatPrice(price.amount, price.currencyCode)}</p>
           {onSale && (
-            <p className="text-xs text-muted-foreground line-through">
+            <p className="text-[10px] text-muted-foreground line-through">
               {formatPrice(compareAt!.amount, compareAt!.currencyCode)}
             </p>
           )}
@@ -120,3 +120,4 @@ export function ProductCard({ product }: Props) {
     </Link>
   );
 }
+

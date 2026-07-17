@@ -6,43 +6,18 @@ import { ProductCard } from "./ProductCard";
 
 export function Hero() {
   return (
-    <section className="relative h-[92vh] min-h-[640px] w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden">
       <img
         src={heroImg}
-        alt="Ronin en la ciudad"
-        className="absolute inset-0 w-full h-full object-cover"
+        alt=""
+        className="block w-full h-auto max-h-[92vh] object-cover"
         width={1920}
         height={1200}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
-
-      <div className="relative z-10 h-full mx-auto max-w-[1600px] px-4 md:px-8 flex flex-col justify-end pb-16 md:pb-24">
-        <p className="text-primary text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.35em] mb-4 fade-in">
-          Colección · Otoño / Invierno
-        </p>
-        <h1 className="text-display text-6xl sm:text-8xl md:text-[10rem] lg:text-[13rem] leading-[0.82] mb-8 fade-in">
-          Viste como
-          <br />
-          <span className="text-primary">Ronin.</span>
-        </h1>
-        <div className="flex flex-col sm:flex-row gap-3 fade-in">
-          <Link
-            to="/collections/all"
-            className="bg-primary text-primary-foreground px-10 py-5 font-semibold uppercase tracking-[0.2em] text-sm text-center hover:bg-primary/90 transition"
-          >
-            Comprar ahora
-          </Link>
-          <Link
-            to="/lookbook"
-            className="border border-foreground/40 text-foreground px-10 py-5 font-semibold uppercase tracking-[0.2em] text-sm text-center hover:border-primary hover:text-primary transition"
-          >
-            Ver comunidad
-          </Link>
-        </div>
-      </div>
     </section>
   );
 }
+
 
 // Generic clothing test images (Unsplash)
 const CATEGORIES = [

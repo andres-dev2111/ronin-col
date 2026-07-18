@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
 import { Logo } from "./Logo";
+
 
 const TICKER_ITEMS = [
   "SIN LÍMITES",

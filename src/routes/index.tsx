@@ -6,7 +6,9 @@ import {
   CategoryGrid,
   FeaturedProducts,
   PromoBanner,
+  OversizeCarousel,
   LookbookTeaser,
+  MediumPromoBanner,
 } from "@/components/ronin/HomeSections";
 import { fetchProducts } from "@/lib/shopify";
 
@@ -30,18 +32,25 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { data: products = [] } = useQuery({
+  const { data: featured = [] } = useQuery({
     queryKey: ["products", "featured"],
-    queryFn: () => fetchProducts(8),
+    queryFn: () => fetchProducts(12),
+  });
+
+  const { data: oversize = [] } = useQuery({
+    queryKey: ["products", "oversize"],
+    queryFn: () => fetchProducts(12, "tag:oversize OR title:oversize"),
   });
 
   return (
     <SiteShell>
       <Hero />
       <CategoryGrid />
-      <FeaturedProducts products={products} />
+      <FeaturedProducts products={featured} />
       <PromoBanner />
+      <OversizeCarousel products={oversize.length ? oversize : featured} />
       <LookbookTeaser />
+      <MediumPromoBanner />
     </SiteShell>
   );
 }

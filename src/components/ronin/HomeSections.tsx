@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroImg from "@/assets/ronin-hero.jpg";
 import promoImg from "@/assets/ronin-promo.jpg";
 import type { ShopifyProduct } from "@/lib/shopify";
@@ -17,7 +19,6 @@ export function Hero() {
     </section>
   );
 }
-
 
 // Generic clothing test images (Unsplash)
 const CATEGORIES = [
@@ -76,31 +77,69 @@ export function CategoryGrid() {
   );
 }
 
-
-interface FeaturedProps {
+interface CarouselProps {
+  title: string;
   products: ShopifyProduct[];
+  viewAllHandle?: string;
 }
 
-/** "Lo nuevo" — full-bleed maxed product grid (Dynamo style) */
-export function FeaturedProducts({ products }: FeaturedProps) {
+function ProductCarousel({ title, products, viewAllHandle }: CarouselProps) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  const scrollBy = (dir: 1 | -1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.8 * dir;
+    el.scrollBy({ left: amount, behavior: "smooth" });
+  };
+
   return (
     <section className="w-full py-12 md:py-16">
       <div className="flex items-end justify-between mb-6 px-2 md:px-3">
-        <h2 className="text-display text-2xl md:text-4xl leading-none tracking-wide">Lo nuevo</h2>
-        <Link
-          to="/collections/all"
-          className="text-[10px] uppercase tracking-[0.25em] font-medium underline underline-offset-4 hover:text-primary"
-        >
-          Ver todo
-        </Link>
+        <h2 className="text-display text-2xl md:text-4xl leading-none tracking-wide">{title}</h2>
+        <div className="flex items-center gap-3">
+          {viewAllHandle && (
+            <Link
+              to="/collections/$handle"
+              params={{ handle: viewAllHandle }}
+              className="text-[10px] uppercase tracking-[0.25em] font-medium underline underline-offset-4 hover:text-primary"
+            >
+              Ver todo
+            </Link>
+          )}
+          <div className="hidden md:flex gap-1">
+            <button
+              onClick={() => scrollBy(-1)}
+              aria-label="Anterior"
+              className="h-9 w-9 border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:text-primary-foreground transition"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => scrollBy(1)}
+              aria-label="Siguiente"
+              className="h-9 w-9 border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:text-primary-foreground transition"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
       </div>
 
       {products.length === 0 ? (
         <div className="px-4"><EmptyProducts /></div>
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-1.5">
-          {products.slice(0, 8).map((p) => (
-            <ProductCard key={p.node.id} product={p} />
+        <div
+          ref={scrollerRef}
+          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-1 md:gap-1.5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {products.map((p) => (
+            <div
+              key={p.node.id}
+              className="snap-start shrink-0 w-[70%] sm:w-[45%] md:w-[32%] lg:w-[24%]"
+            >
+              <ProductCard product={p} />
+            </div>
           ))}
         </div>
       )}
@@ -108,6 +147,19 @@ export function FeaturedProducts({ products }: FeaturedProps) {
   );
 }
 
+interface FeaturedProps {
+  products: ShopifyProduct[];
+}
+
+/** "Lo nuevo" — horizontal carousel */
+export function FeaturedProducts({ products }: FeaturedProps) {
+  return <ProductCarousel title="Lo nuevo" products={products} viewAllHandle="all" />;
+}
+
+/** "Oversize" — horizontal carousel */
+export function OversizeCarousel({ products }: FeaturedProps) {
+  return <ProductCarousel title="Oversize" products={products} viewAllHandle="camisetas-oversize" />;
+}
 
 export function EmptyProducts() {
   return (
@@ -124,14 +176,26 @@ export function EmptyProducts() {
 export function PromoBanner() {
   return (
     <section className="relative w-full overflow-hidden">
-      <Link to="/collections/all" aria-label="Ver colección" className="block">
-        <img
-          src={promoImg}
-          alt=""
-          className="block w-full h-auto max-h-[80vh] object-cover"
-          loading="lazy"
-        />
-      </Link>
+      <img
+        src={promoImg}
+        alt=""
+        className="block w-full h-auto max-h-[80vh] object-cover"
+        loading="lazy"
+      />
+    </section>
+  );
+}
+
+/** Medium promotional banner — image only */
+export function MediumPromoBanner() {
+  return (
+    <section className="relative w-full overflow-hidden">
+      <img
+        src="https://images.unsplash.com/photo-1520975916090-3105956dac38?w=1920&auto=format&fit=crop&q=70"
+        alt=""
+        className="block w-full h-[40vh] md:h-[55vh] object-cover"
+        loading="lazy"
+      />
     </section>
   );
 }
@@ -164,4 +228,3 @@ export function LookbookTeaser() {
     </section>
   );
 }
-

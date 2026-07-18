@@ -38,39 +38,7 @@ export function Footer() {
       </div>
 
       <div className="mx-auto max-w-[1600px] px-4 md:px-8 py-16">
-        {/* Newsletter */}
-        <div className="max-w-2xl mx-auto text-center mb-16">
-          <h3 className="text-display text-4xl md:text-5xl mb-3">
-            Únete a la <span className="text-primary">comunidad Ronin</span>
-          </h3>
-          <p className="text-muted-foreground mb-6">
-            Drops exclusivos, acceso anticipado y ofertas solo para Ronines.
-          </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (!email) return;
-              toast.success("Bienvenido a la comunidad Ronin");
-              setEmail("");
-            }}
-            className="flex flex-col sm:flex-row gap-2"
-          >
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="tu@correo.com"
-              className="flex-1 bg-background border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition"
-            />
-            <button
-              type="submit"
-              className="bg-primary text-primary-foreground px-6 py-3 font-medium uppercase tracking-wider text-sm hover:bg-primary/90 transition"
-            >
-              Suscribirme
-            </button>
-          </form>
-        </div>
+
 
         {/* Columns: Brand · Contact · Follow · Help */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">

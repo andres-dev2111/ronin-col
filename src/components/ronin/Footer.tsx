@@ -21,8 +21,8 @@ function TikTok({ className }: { className?: string }) {
 }
 
 export function Footer() {
-  const [email, setEmail] = useState("");
   return (
+
     <footer className="bg-card border-t border-border mt-24">
       {/* Ticker */}
       <div className="border-y border-border py-6 overflow-hidden bg-background">

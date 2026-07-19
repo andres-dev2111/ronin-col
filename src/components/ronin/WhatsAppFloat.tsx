@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "573001234567"; // +57 300 123 4567
+const WHATSAPP_NUMBER = "573053405157"; // +57 305 340 5157
 const WHATSAPP_MSG = "Hola RONIN, quiero saber más sobre sus productos.";
 
 export function WhatsAppFloat() {

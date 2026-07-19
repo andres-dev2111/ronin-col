@@ -55,13 +55,13 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li className="flex items-start gap-3">
                 <MessageCircle className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" className="hover:text-primary">
-                  WhatsApp: +57 300 123 4567
+                <a href="https://wa.me/573053405157" target="_blank" rel="noopener noreferrer" className="hover:text-primary">
+                  WhatsApp: +57 3053405157
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                <span>Atención al cliente:<br />01 8000 123 456</span>
+                <span>Atención al cliente:<br />3053405157</span>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="h-4 w-4 mt-0.5 text-primary shrink-0" />
@@ -71,7 +71,7 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                <span>Carrera 48 #52 sur 81<br />Sabaneta, Antioquia — Colombia</span>
+                <span>Bucaramanga, Santander</span>
               </li>
             </ul>
           </div>

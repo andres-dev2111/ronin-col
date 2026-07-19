@@ -81,8 +81,8 @@ function Community() {
     <SiteShell>
       {/* Intro */}
       <section className="mx-auto max-w-[1600px] px-4 md:px-8 pt-12 md:pt-16 pb-8 text-center">
-        <p className="text-primary text-xs uppercase tracking-[0.35em] mb-3">La comunidad</p>
-        <h1 className="text-display text-5xl md:text-8xl mb-4">Get the Look</h1>
+        <p className="text-primary text-xs uppercase tracking-[0.35em] mb-3">NUESTRA</p>
+        <h1 className="text-display text-5xl md:text-8xl mb-4">comunidad ronin</h1>
         <p className="text-muted-foreground max-w-xl mx-auto text-sm">
           Toca cualquier look para ver y comprar las prendas. Comparte el tuyo mencionando{" "}
           <span className="text-primary">@ronin.oficial</span> y{" "}

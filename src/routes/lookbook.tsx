@@ -96,20 +96,7 @@ function Community() {
       {/* Immersive photo grid — no text over photos */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-1.5 pb-24 px-1 md:px-1.5">
         {looks.map((look, i) => (
-          <button
-            key={look.id}
-            onClick={() => openLook(i)}
-            aria-label={`Ver look ${look.handle}`}
-            className="group relative aspect-[3/4] overflow-hidden bg-card"
-          >
-            <img
-              src={look.image}
-              alt=""
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
-          </button>
+          <LookTile key={look.id} look={look} onOpen={() => openLook(i)} />
         ))}
       </div>
 

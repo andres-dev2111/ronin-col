@@ -5,6 +5,9 @@ import { Loader2, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { SiteShell } from "@/components/ronin/SiteShell";
 import { fetchProducts, formatPrice, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { useWishlistStore } from "@/stores/wishlistStore";
+import { KamonIcon } from "@/components/ronin/KamonIcon";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/lookbook")({

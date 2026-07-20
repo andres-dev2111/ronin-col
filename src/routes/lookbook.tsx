@@ -112,6 +112,50 @@ function Community() {
   );
 }
 
+function LookTile({ look, onOpen }: { look: Look; onOpen: () => void }) {
+  const wishId = `look:${look.id}`;
+  const saved = useWishlistStore((s) => s.ids.includes(wishId));
+  const toggle = useWishlistStore((s) => s.toggle);
+
+  const onWish = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggle(wishId);
+    if (!saved) toast.success(`Look ${look.handle} guardado en favoritos`);
+  };
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onOpen()}
+      aria-label={`Ver look ${look.handle}`}
+      className="group relative aspect-[3/4] overflow-hidden bg-card cursor-pointer"
+    >
+      <img
+        src={look.image}
+        alt=""
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0 pointer-events-none" />
+
+      <button
+        onClick={onWish}
+        aria-label={saved ? "Quitar look de favoritos" : "Guardar look en favoritos"}
+        aria-pressed={saved}
+        className="absolute top-2 right-2 h-9 w-9 grid place-items-center rounded-full bg-background/85 backdrop-blur-sm border border-border/60 hover:border-primary transition"
+      >
+        <KamonIcon filled={saved} className="h-4 w-4" />
+      </button>
+
+      <span className="absolute bottom-2 left-2 text-white text-[10px] uppercase tracking-[0.3em] bg-black/55 backdrop-blur px-2.5 py-1">
+        {look.handle}
+      </span>
+    </div>
+  );
+}
+
 interface ModalProps {
   look: Look;
   onClose: () => void;

@@ -1,10 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { toast } from "sonner";
 import heroImg from "@/assets/ronin-hero.jpg";
 import promoImg from "@/assets/ronin-promo.jpg";
 import type { ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
+import { KamonIcon } from "./KamonIcon";
+import { useWishlistStore } from "@/stores/wishlistStore";
 
 export function Hero() {
   return (

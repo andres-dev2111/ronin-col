@@ -263,3 +263,44 @@ export function LookbookTeaser() {
     </section>
   );
 }
+
+function LookCarouselItem({ img, handle }: { img: string; handle: string }) {
+  const wishId = `look:${handle}`;
+  const saved = useWishlistStore((s) => s.ids.includes(wishId));
+  const toggle = useWishlistStore((s) => s.toggle);
+
+  const onWish = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggle(wishId);
+    if (!saved) toast.success(`Look ${handle} guardado en favoritos`);
+  };
+
+  return (
+    <div className="relative snap-start shrink-0 w-[75%] sm:w-[45%] md:w-[32%] lg:w-[24%] aspect-[3/4] overflow-hidden bg-card group">
+      <Link to="/lookbook" className="absolute inset-0 block" aria-label={`Ver look ${handle}`}>
+        <img
+          src={img}
+          alt=""
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      </Link>
+
+      {/* Wishlist — top right */}
+      <button
+        onClick={onWish}
+        aria-label={saved ? "Quitar look de favoritos" : "Guardar look en favoritos"}
+        aria-pressed={saved}
+        className="absolute top-3 right-3 z-10 h-9 w-9 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 grid place-items-center text-white hover:border-primary hover:text-primary transition"
+      >
+        <KamonIcon filled={saved} className="h-4 w-4" />
+      </button>
+
+      {/* Handle tag — bottom left */}
+      <span className="absolute bottom-3 left-3 text-white text-[10px] uppercase tracking-[0.25em] bg-black/60 backdrop-blur-sm px-2.5 py-1 pointer-events-none">
+        {handle}
+      </span>
+    </div>
+  );
+}

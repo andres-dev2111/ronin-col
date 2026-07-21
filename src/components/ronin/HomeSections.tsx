@@ -201,29 +201,86 @@ export function MediumPromoBanner() {
 }
 
 const LOOKS = [
-  { img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=70" },
-  { img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&auto=format&fit=crop&q=70" },
-  { img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1200&auto=format&fit=crop&q=70" },
+  { img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=70", handle: "@clarisse_vsr" },
+  { img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&auto=format&fit=crop&q=70", handle: "@mariaagi02" },
+  { img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1200&auto=format&fit=crop&q=70", handle: "@martinapaolini" },
+  { img: "https://images.unsplash.com/photo-1519058454-8f9d1e0a4a4a?w=1200&auto=format&fit=crop&q=70", handle: "@mariacarballom" },
+  { img: "https://images.unsplash.com/photo-1495121605193-b116b5b9c5fe?w=1200&auto=format&fit=crop&q=70", handle: "@lu.ronin" },
+  { img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1200&auto=format&fit=crop&q=70", handle: "@sofi.k" },
 ];
 
 export function LookbookTeaser() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const scrollBy = (dir: 1 | -1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: el.clientWidth * 0.8 * dir, behavior: "smooth" });
+  };
+
   return (
-    <section className="w-full">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-        {LOOKS.map((l, i) => (
-          <Link
-            key={i}
-            to="/lookbook"
-            className="relative aspect-[4/5] overflow-hidden bg-card group"
+    <section className="w-full py-24 md:py-32">
+      <div className="text-center mb-10 md:mb-14 px-4">
+        <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-muted-foreground mb-3">
+          Comunidad
+        </p>
+        <p className="text-display text-2xl md:text-4xl tracking-wide">
+          <span className="text-foreground">@ronin.oficial</span>
+          <span className="text-foreground"> y </span>
+          <span className="text-primary">#SoyRonin</span>
+        </p>
+      </div>
+
+      <div className="relative">
+        <div
+          ref={scrollerRef}
+          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-1 md:gap-1.5 pb-2 px-2 md:px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {LOOKS.map((l, i) => (
+            <Link
+              key={i}
+              to="/lookbook"
+              className="relative snap-start shrink-0 w-[75%] sm:w-[45%] md:w-[32%] lg:w-[24%] aspect-[3/4] overflow-hidden bg-card group"
+            >
+              <img
+                src={l.img}
+                alt=""
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              {/* Product tag icon — top right */}
+              <span
+                aria-hidden
+                className="absolute top-3 right-3 h-8 w-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 grid place-items-center text-white"
+              >
+                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
+                  <circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              {/* Handle tag — bottom left */}
+              <span className="absolute bottom-3 left-3 text-white text-[10px] uppercase tracking-[0.25em] bg-black/60 backdrop-blur-sm px-2.5 py-1">
+                {l.handle}
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="hidden md:flex justify-end gap-1 mt-4 px-3">
+          <button
+            onClick={() => scrollBy(-1)}
+            aria-label="Anterior"
+            className="h-9 w-9 border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:text-primary-foreground transition"
           >
-            <img
-              src={l.img}
-              alt=""
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          </Link>
-        ))}
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => scrollBy(1)}
+            aria-label="Siguiente"
+            className="h-9 w-9 border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:text-primary-foreground transition"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -221,8 +221,8 @@ export function LookbookTeaser() {
   };
 
   return (
-    <section className="w-full py-24 md:py-32">
-      <div className="text-center mb-10 md:mb-14 px-4">
+    <section className="w-full py-14 md:py-20">
+      <div className="text-center mb-8 md:mb-10 px-4">
         <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-muted-foreground mb-3">
           Comunidad
         </p>
@@ -239,32 +239,7 @@ export function LookbookTeaser() {
           className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-1 md:gap-1.5 pb-2 px-2 md:px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {LOOKS.map((l, i) => (
-            <Link
-              key={i}
-              to="/lookbook"
-              className="relative snap-start shrink-0 w-[75%] sm:w-[45%] md:w-[32%] lg:w-[24%] aspect-[3/4] overflow-hidden bg-card group"
-            >
-              <img
-                src={l.img}
-                alt=""
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              {/* Product tag icon — top right */}
-              <span
-                aria-hidden
-                className="absolute top-3 right-3 h-8 w-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 grid place-items-center text-white"
-              >
-                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
-                  <circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none" />
-                </svg>
-              </span>
-              {/* Handle tag — bottom left */}
-              <span className="absolute bottom-3 left-3 text-white text-[10px] uppercase tracking-[0.25em] bg-black/60 backdrop-blur-sm px-2.5 py-1">
-                {l.handle}
-              </span>
-            </Link>
+            <LookCarouselItem key={i} img={l.img} handle={l.handle} />
           ))}
         </div>
 

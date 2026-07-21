@@ -93,7 +93,7 @@ export function Header({ onOpenCart }: HeaderProps) {
             <Link
               to="/"
               aria-label="RONIN — Inicio"
-              className="justify-self-center h-10 md:h-12 lg:h-14 flex items-center"
+              className="justify-self-center h-14 md:h-20 lg:h-24 flex items-center"
             >
               <Logo />
             </Link>

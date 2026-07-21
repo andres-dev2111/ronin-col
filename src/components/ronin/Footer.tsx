@@ -39,18 +39,13 @@ export function Footer() {
       <div className="mx-auto max-w-[1600px] px-4 md:px-8 py-16">
         {/* Centered brand logo */}
         <div className="flex justify-center pb-12 md:pb-16">
-          <div className="h-16 md:h-20">
+          <div className="h-28 md:h-36">
             <Logo />
           </div>
         </div>
 
-
-
-
-        {/* Columns: Brand · Contact · Follow · Help */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          {/* Brand */}
-          <div />
+        {/* Columns: Contact · Follow · Help — evenly distributed */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 mb-12">
 
           {/* Contacto */}
           <div>

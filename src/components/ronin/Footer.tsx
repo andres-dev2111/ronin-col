@@ -50,11 +50,7 @@ export function Footer() {
         {/* Columns: Brand · Contact · Follow · Help */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
-          <div>
-            <p className="text-sm text-muted-foreground">
-              Streetwear premium para hombres urbanos. Sin límites.
-            </p>
-          </div>
+          <div />
 
           {/* Contacto */}
           <div>

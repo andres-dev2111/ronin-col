@@ -97,7 +97,7 @@ function ProductCarousel({ title, products, viewAllHandle }: CarouselProps) {
   };
 
   return (
-    <section className="w-full py-12 md:py-16">
+    <section className="w-full py-8 md:py-10">
       <div className="flex items-end justify-between mb-6 px-2 md:px-3">
         <h2 className="text-display text-2xl md:text-4xl leading-none tracking-wide">{title}</h2>
         <div className="flex items-center gap-3">

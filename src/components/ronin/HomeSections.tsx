@@ -49,7 +49,7 @@ const CATEGORIES = [
 
 export function CategoryGrid() {
   return (
-    <section className="w-full py-12 md:py-16">
+    <section className="w-full py-8 md:py-10">
       <div className="mb-6 px-2 md:px-3">
         <p className="text-primary text-[10px] uppercase tracking-[0.35em] mb-1">Categorías</p>
         <h2 className="text-display text-2xl md:text-4xl tracking-wide">Elige tu armadura</h2>

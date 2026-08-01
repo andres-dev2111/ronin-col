@@ -65,22 +65,9 @@ function ProductPage() {
     );
   }, [variants, selectedOpts]);
 
-  // Sync main image with active variant: try to match altText against any
-  // selected option value; fall back to variant position in the list.
-  useEffect(() => {
-    if (!activeVariant || images.length === 0) return;
-    const values = activeVariant.selectedOptions.map((o) => o.value.toLowerCase());
-    const idx = images.findIndex((img) => {
-      const alt = (img.node.altText ?? "").toLowerCase();
-      return values.some((v) => v && alt.includes(v));
-    });
-    if (idx >= 0) {
-      setImgIdx(idx);
-      return;
-    }
-    const variantIdx = variants.findIndex((v) => v.id === activeVariant.id);
-    if (variantIdx >= 0 && variantIdx < images.length) setImgIdx(variantIdx);
-  }, [activeVariant, images, variants]);
+  // Gallery is purely photographic: thumbnails never change the selected variant,
+  // and variant selection never changes the active image.
+
 
   const handleAdd = async () => {
     if (!product || !activeVariant) return;
@@ -156,7 +143,7 @@ function ProductPage() {
           {/* GALLERY */}
           <div>
             {/* Main image — giant, zoom on hover */}
-            <ZoomImage
+            <MainImage
               src={currentImg?.url}
               alt={currentImg?.altText ?? product.title}
               onFullscreen={() => setFullscreen(true)}

@@ -197,9 +197,14 @@ function ProductPage() {
               )}
             </div>
 
-            {/* Options */}
+            {/* Options — solo talla (sin selectores de color) */}
             {product.options
-              .filter((o) => o.values.length > 1 || o.name !== "Title")
+              .filter(
+                (o) =>
+                  o.name !== "Title" &&
+                  !/color|colour/i.test(o.name) &&
+                  o.values.length > 0,
+              )
               .map((option) => (
                 <div key={option.name} className="mb-6">
                   <p className="text-sm font-semibold mb-3 uppercase tracking-wider">
@@ -361,9 +366,9 @@ function ProductPage() {
   );
 }
 
-/* ---------------- Zoom image (giant, hover-zoom, mobile-touch pan) ---------------- */
+/* ---------------- Main image (static, click opens lightbox) ---------------- */
 
-interface ZoomImageProps {
+interface MainImageProps {
   src?: string;
   alt: string;
   onFullscreen: () => void;
@@ -371,61 +376,18 @@ interface ZoomImageProps {
   productTitle: string;
 }
 
-function ZoomImage({ src, alt, onFullscreen, productId, productTitle }: ZoomImageProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [zoom, setZoom] = useState(false);
-  const [pos, setPos] = useState({ x: 50, y: 50 });
-
-  const move = (clientX: number, clientY: number) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = ((clientX - rect.left) / rect.width) * 100;
-    const y = ((clientY - rect.top) / rect.height) * 100;
-    setPos({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) });
-  };
-
+function MainImage({ src, alt, onFullscreen, productId, productTitle }: MainImageProps) {
   return (
-    <div
-      ref={ref}
-      className="relative w-full aspect-[4/5] md:aspect-square bg-card overflow-hidden group"
-      onMouseEnter={() => setZoom(true)}
-      onMouseLeave={() => setZoom(false)}
-      onMouseMove={(e) => zoom && move(e.clientX, e.clientY)}
-      onTouchStart={(e) => {
-        setZoom(true);
-        const t = e.touches[0];
-        if (t) move(t.clientX, t.clientY);
-      }}
-      onTouchMove={(e) => {
-        const t = e.touches[0];
-        if (t) move(t.clientX, t.clientY);
-      }}
-      onTouchEnd={() => setZoom(false)}
-    >
+    <div className="relative w-full aspect-[4/5] md:aspect-square bg-card overflow-hidden group">
       {src && (
-        <>
-          <img
-            src={src}
-            alt={alt}
-            className={cn(
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-200",
-              zoom ? "opacity-0" : "opacity-100",
-            )}
-          />
-          <div
-            className={cn(
-              "absolute inset-0 transition-opacity duration-200 pointer-events-none",
-              zoom ? "opacity-100" : "opacity-0",
-            )}
-            style={{
-              backgroundImage: `url(${src})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "220%",
-              backgroundPosition: `${pos.x}% ${pos.y}%`,
-            }}
-          />
-        </>
+        <button
+          type="button"
+          onClick={onFullscreen}
+          aria-label="Ampliar imagen"
+          className="absolute inset-0 w-full h-full cursor-zoom-in"
+        >
+          <img src={src} alt={alt} className="w-full h-full object-cover" />
+        </button>
       )}
 
       {/* Fullscreen trigger */}
@@ -442,16 +404,11 @@ function ZoomImage({ src, alt, onFullscreen, productId, productTitle }: ZoomImag
         productTitle={productTitle}
         className="absolute top-4 right-4"
       />
-
-      {/* Hint */}
-      <span className="hidden md:block absolute bottom-4 left-4 text-[10px] uppercase tracking-widest bg-background/70 backdrop-blur px-2 py-1 rounded pointer-events-none opacity-0 group-hover:opacity-100 transition">
-        Mueve para hacer zoom
-      </span>
     </div>
   );
 }
 
-/* ---------------- Fullscreen viewer ---------------- */
+/* ---------------- Fullscreen lightbox with click-to-zoom ---------------- */
 
 interface FullscreenViewerProps {
   images: Array<{ url: string; altText: string | null }>;
@@ -462,6 +419,9 @@ interface FullscreenViewerProps {
 }
 
 function FullscreenViewer({ images, index, onChange, onClose, title }: FullscreenViewerProps) {
+  const [zoomed, setZoomed] = useState(false);
+  const [origin, setOrigin] = useState({ x: 50, y: 50 });
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -472,38 +432,68 @@ function FullscreenViewer({ images, index, onChange, onClose, title }: Fullscree
     return () => window.removeEventListener("keydown", onKey);
   }, [index, images.length, onChange, onClose]);
 
+  // Reset zoom whenever the visible photo changes
+  useEffect(() => {
+    setZoomed(false);
+    setOrigin({ x: 50, y: 50 });
+  }, [index]);
+
+  const toggleZoom = (e: React.MouseEvent<HTMLImageElement>) => {
+    if (zoomed) {
+      setZoomed(false);
+      return;
+    }
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setOrigin({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) });
+    setZoomed(true);
+  };
+
   const img = images[index];
   return (
-    <div className="fixed inset-0 z-[60] bg-background/98 backdrop-blur flex flex-col">
-      <div className="flex items-center justify-between px-4 h-14 border-b border-border/40">
+    <div className="fixed inset-0 z-[60] bg-black/95 flex flex-col">
+      <div className="flex items-center justify-between px-4 h-14">
         <span className="text-xs uppercase tracking-wider text-muted-foreground">
           {title} — {index + 1} / {images.length}
         </span>
         <button
           onClick={onClose}
           aria-label="Cerrar"
-          className="h-10 w-10 rounded-full hover:bg-card flex items-center justify-center"
+          className="h-10 w-10 rounded-full bg-background/10 hover:bg-background/20 text-foreground flex items-center justify-center"
         >
           <X className="h-5 w-5" />
         </button>
       </div>
-      <div className="relative flex-1 flex items-center justify-center p-4">
+      <div className="relative flex-1 flex items-center justify-center p-4 overflow-hidden">
         {img && (
-          <img src={img.url} alt={img.altText ?? title} className="max-h-full max-w-full object-contain" />
+          <img
+            src={img.url}
+            alt={img.altText ?? title}
+            onClick={toggleZoom}
+            style={{
+              transform: zoomed ? "scale(2.5)" : "scale(1)",
+              transformOrigin: `${origin.x}% ${origin.y}%`,
+            }}
+            className={cn(
+              "max-h-full max-w-full object-contain transition-transform duration-300 select-none",
+              zoomed ? "cursor-zoom-out" : "cursor-zoom-in",
+            )}
+          />
         )}
-        {images.length > 1 && (
+        {images.length > 1 && !zoomed && (
           <>
             <button
               onClick={() => onChange((index - 1 + images.length) % images.length)}
               aria-label="Anterior"
-              className="absolute left-4 h-12 w-12 rounded-full bg-card/70 backdrop-blur border border-border flex items-center justify-center hover:bg-card"
+              className="absolute left-4 h-12 w-12 rounded-full bg-background/20 backdrop-blur text-foreground flex items-center justify-center hover:bg-background/40"
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={() => onChange((index + 1) % images.length)}
               aria-label="Siguiente"
-              className="absolute right-4 h-12 w-12 rounded-full bg-card/70 backdrop-blur border border-border flex items-center justify-center hover:bg-card"
+              className="absolute right-4 h-12 w-12 rounded-full bg-background/20 backdrop-blur text-foreground flex items-center justify-center hover:bg-background/40"
             >
               <ChevronRight className="h-6 w-6" />
             </button>
@@ -513,3 +503,4 @@ function FullscreenViewer({ images, index, onChange, onClose, title }: Fullscree
     </div>
   );
 }
+

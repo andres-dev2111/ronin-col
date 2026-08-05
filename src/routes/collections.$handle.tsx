@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/ronin/SiteShell";
 import { ProductCard } from "@/components/ronin/ProductCard";
 import { EmptyProducts, CategoryGrid } from "@/components/ronin/HomeSections";
-import { fetchCollection, fetchProducts } from "@/lib/shopify";
+import { fetchCollection, fetchProducts } from "@/lib/catalog";
 
 export const Route = createFileRoute("/collections/$handle")({
   head: ({ params }) => {
@@ -72,7 +72,7 @@ function CollectionPage() {
           <div className="px-4"><EmptyProducts /></div>
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-1.5">
-            {data!.products.map((p: import("@/lib/shopify").ShopifyProduct) => (
+            {data!.products.map((p: import("@/lib/catalog").CatalogProductEdge) => (
               <ProductCard key={p.node.id} product={p} />
             ))}
           </div>

@@ -5,7 +5,6 @@ import { useCartStore } from "@/stores/cartStore";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { SearchOverlay } from "./SearchOverlay";
-import { SHOPIFY_STORE_PERMANENT_DOMAIN } from "@/lib/shopify";
 
 const ANNOUNCEMENTS = [
   "⚡ ENVÍO GRATIS en compras mayores a $150.000",
@@ -32,7 +31,6 @@ interface HeaderProps {
   onOpenCart: () => void;
 }
 
-const SHOPIFY_ACCOUNT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/account`;
 
 export function Header({ onOpenCart }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -108,15 +106,13 @@ export function Header({ onOpenCart }: HeaderProps) {
               >
                 <Search className="h-6 w-6" />
               </button>
-              <a
-                aria-label="Mi cuenta"
-                href={SHOPIFY_ACCOUNT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/admin/"
+                aria-label="Panel admin"
                 className="text-foreground/80 hover:text-primary transition hidden sm:block"
               >
                 <User className="h-6 w-6" />
-              </a>
+              </Link>
               <button
                 aria-label="Carrito"
                 onClick={onOpenCart}
@@ -157,14 +153,13 @@ export function Header({ onOpenCart }: HeaderProps) {
                 {n.label}
               </Link>
             ))}
-            <a
-              href={SHOPIFY_ACCOUNT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/admin/"
               className="text-display text-3xl tracking-wider hover:text-primary"
+              onClick={() => setMobileOpen(false)}
             >
-              Mi cuenta
-            </a>
+              Admin
+            </Link>
           </nav>
         </div>
       )}

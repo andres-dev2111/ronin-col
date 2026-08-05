@@ -1,7 +1,9 @@
 import { useEffect } from "react";
-import { X, Minus, Plus, Trash2, ShoppingBag, ExternalLink, Loader2 } from "lucide-react";
+import { X, Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 import { useCartStore } from "@/stores/cartStore";
-import { formatPrice } from "@/lib/shopify";
+import { formatPrice, fetchShippingConfig } from "@/lib/catalog";
+import { useQuery } from "@tanstack/react-query";
 
 interface CartDrawerProps {
   open: boolean;
@@ -9,15 +11,28 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
-  const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } =
-    useCartStore();
-  const totalItems = items.reduce((s, i) => s + i.quantity, 0);
-  const total = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
+  const { items, isLoading, updateQuantity, removeItem, subtotal, totalItems } = useCartStore();
+  const navigate = useNavigate();
+
+  // Fetch shipping config for real-time total display
+  const { data: shippingConfig } = useQuery({
+    queryKey: ["shipping-config"],
+    queryFn: fetchShippingConfig,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const sub = subtotal();
+  const count = totalItems();
   const currency = items[0]?.price.currencyCode || "COP";
 
-  useEffect(() => {
-    if (open) syncCart();
-  }, [open, syncCart]);
+  const shippingCost =
+    shippingConfig &&
+    shippingConfig.free_shipping_above !== null &&
+    sub >= shippingConfig.free_shipping_above
+      ? 0
+      : (shippingConfig?.fixed_cost ?? 10000);
+
+  const total = sub + shippingCost;
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -27,11 +42,8 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
   }, [open]);
 
   const handleCheckout = () => {
-    const url = getCheckoutUrl();
-    if (url) {
-      window.open(url, "_blank");
-      onClose();
-    }
+    onClose();
+    navigate({ to: "/checkout" });
   };
 
   return (
@@ -51,7 +63,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           <div>
             <h3 className="text-display text-2xl tracking-wider">TU CARRITO</h3>
             <p className="text-xs text-muted-foreground">
-              {totalItems === 0 ? "Vacío" : `${totalItems} artículo${totalItems !== 1 ? "s" : ""}`}
+              {count === 0 ? "Vacío" : `${count} artículo${count !== 1 ? "s" : ""}`}
             </p>
           </div>
           <button onClick={onClose} aria-label="Cerrar">
@@ -126,22 +138,46 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
               })}
             </div>
 
-            <div className="p-5 border-t border-border space-y-4">
-              <div className="flex justify-between">
-                <span className="uppercase tracking-wider text-sm">Total</span>
+            <div className="p-5 border-t border-border space-y-3">
+              {/* Subtotal */}
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span>{formatPrice(sub, currency)}</span>
+              </div>
+
+              {/* Shipping */}
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Envío</span>
+                <span>
+                  {shippingCost === 0
+                    ? "Gratis 🎉"
+                    : formatPrice(shippingCost, currency)}
+                </span>
+              </div>
+
+              {/* Threshold hint */}
+              {shippingConfig?.free_shipping_above && shippingCost > 0 && (
+                <p className="text-[10px] text-muted-foreground">
+                  Envío gratis en compras superiores a{" "}
+                  {formatPrice(shippingConfig.free_shipping_above, currency)}
+                </p>
+              )}
+
+              {/* Total */}
+              <div className="flex justify-between pt-2 border-t border-border">
+                <span className="uppercase tracking-wider text-sm font-semibold">Total</span>
                 <span className="text-display text-2xl">{formatPrice(total, currency)}</span>
               </div>
+
               <button
                 onClick={handleCheckout}
-                disabled={isLoading || isSyncing}
+                disabled={isLoading}
                 className="w-full bg-primary text-primary-foreground py-4 font-semibold uppercase tracking-wider text-sm flex items-center justify-center gap-2 hover:bg-primary/90 disabled:opacity-50 transition"
               >
-                {isLoading || isSyncing ? (
+                {isLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
-                  <>
-                    Pagar en Shopify <ExternalLink className="h-4 w-4" />
-                  </>
+                  "Ir al checkout →"
                 )}
               </button>
               <p className="text-[10px] text-muted-foreground text-center uppercase tracking-wider">

@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import heroImg from "@/assets/ronin-hero.jpg";
 import promoImg from "@/assets/ronin-promo.jpg";
-import type { ShopifyProduct } from "@/lib/shopify";
+import type { CatalogProductEdge } from "@/lib/catalog";
 import { ProductCard } from "./ProductCard";
 import { KamonIcon } from "./KamonIcon";
 import { useWishlistStore } from "@/stores/wishlistStore";
@@ -82,7 +82,7 @@ export function CategoryGrid() {
 
 interface CarouselProps {
   title: string;
-  products: ShopifyProduct[];
+  products: CatalogProductEdge[];
   viewAllHandle?: string;
 }
 
@@ -151,7 +151,7 @@ function ProductCarousel({ title, products, viewAllHandle }: CarouselProps) {
 }
 
 interface FeaturedProps {
-  products: ShopifyProduct[];
+  products: CatalogProductEdge[];
 }
 
 /** "Lo nuevo" — horizontal carousel */
@@ -169,8 +169,7 @@ export function EmptyProducts() {
     <div className="border border-dashed border-border p-12 text-center">
       <p className="text-display text-3xl mb-3">Sin productos aún</p>
       <p className="text-muted-foreground max-w-md mx-auto">
-        Cuéntale al chat qué producto quieres crear y su precio, y aparecerá aquí
-        automáticamente conectado a tu tienda Shopify.
+        Aún no hay productos disponibles. Agrega productos desde el panel admin de RONIN.
       </p>
     </div>
   );

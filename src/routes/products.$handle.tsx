@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -16,11 +16,10 @@ import {
 } from "lucide-react";
 import { SiteShell } from "@/components/ronin/SiteShell";
 import {
-  createBuyNowCheckout,
   fetchProductByHandle,
   formatPrice,
-  type ShopifyVariant,
-} from "@/lib/shopify";
+  type CatalogVariant,
+} from "@/lib/catalog";
 import { useCartStore } from "@/stores/cartStore";
 import { cn } from "@/lib/utils";
 import { Accordion } from "@/components/ronin/Accordion";
@@ -48,14 +47,14 @@ function ProductPage() {
   const [imgIdx, setImgIdx] = useState(0);
   const [qty, setQty] = useState(1);
   const [adding, setAdding] = useState(false);
-  const [buyingNow, setBuyingNow] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
+  const navigate = useNavigate();
 
   const variants = product?.variants.edges.map((e) => e.node) ?? [];
   const images = product?.images.edges ?? [];
 
-  const activeVariant: ShopifyVariant | undefined = useMemo(() => {
+  const activeVariant: CatalogVariant | undefined = useMemo(() => {
     if (variants.length === 0) return undefined;
     if (Object.keys(selectedOpts).length === 0) return variants[0];
     return (
@@ -69,10 +68,10 @@ function ProductPage() {
   // and variant selection never changes the active image.
 
 
-  const handleAdd = async () => {
+  const handleAdd = () => {
     if (!product || !activeVariant) return;
     setAdding(true);
-    await addItem({
+    addItem({
       product: {
         id: product.id,
         title: product.title,
@@ -89,19 +88,9 @@ function ProductPage() {
     toast.success("Añadido a la cesta");
   };
 
-  const handleBuyNow = async () => {
+  const handleBuyNow = () => {
     if (!activeVariant) return;
-    setBuyingNow(true);
-    try {
-      const url = await createBuyNowCheckout(activeVariant.id, qty);
-      if (url) {
-        window.open(url, "_blank");
-      } else {
-        toast.error("No se pudo iniciar el checkout");
-      }
-    } finally {
-      setBuyingNow(false);
-    }
+    navigate({ to: "/checkout" });
   };
 
   if (isLoading) {
@@ -280,10 +269,10 @@ function ProductPage() {
             {/* Buy it now */}
             <button
               onClick={handleBuyNow}
-              disabled={!inStock || buyingNow}
+              disabled={!inStock}
               className="w-full border-2 border-foreground text-foreground py-4 uppercase tracking-[0.25em] font-bold text-sm hover:bg-foreground hover:text-background disabled:opacity-50 transition flex items-center justify-center gap-2 rounded-full mb-6"
             >
-              {buyingNow ? <Loader2 className="h-4 w-4 animate-spin" /> : "Pagar ahora"}
+              Pagar ahora
             </button>
 
             {/* Trust row */}

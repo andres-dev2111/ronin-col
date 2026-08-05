@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Loader2, Plus } from "lucide-react";
-import type { ShopifyProduct } from "@/lib/shopify";
-import { formatPrice } from "@/lib/shopify";
+import type { CatalogProductEdge } from "@/lib/catalog";
+import { formatPrice } from "@/lib/catalog";
 import { useCartStore } from "@/stores/cartStore";
 import { WishlistButton } from "./WishlistButton";
 
 interface Props {
-  product: ShopifyProduct;
+  product: CatalogProductEdge;
 }
 
 function isNew(createdAt?: string) {
@@ -27,11 +27,11 @@ export function ProductCard({ product }: Props) {
   const addItem = useCartStore((s) => s.addItem);
   const [adding, setAdding] = useState(false);
 
-  const handleQuickAdd = async (e: React.MouseEvent) => {
+  const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!variant) return;
     setAdding(true);
-    await addItem({
+    addItem({
       product: { id: p.id, title: p.title, handle: p.handle, images: p.images },
       variantId: variant.id,
       variantTitle: variant.title,

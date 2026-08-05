@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Loader2, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { SiteShell } from "@/components/ronin/SiteShell";
-import { fetchProducts, formatPrice, type ShopifyProduct } from "@/lib/shopify";
+import { fetchProducts, formatPrice, type CatalogProductEdge } from "@/lib/catalog";
 import { useCartStore } from "@/stores/cartStore";
 import { useWishlistStore } from "@/stores/wishlistStore";
 import { KamonIcon } from "@/components/ronin/KamonIcon";
@@ -49,7 +49,7 @@ interface Look {
   id: number;
   image: string;
   handle: string;
-  items: ShopifyProduct[];
+  items: CatalogProductEdge[];
 }
 
 function Community() {
@@ -262,17 +262,17 @@ function LookModal({ look, onClose, onNext, onPrev }: ModalProps) {
   );
 }
 
-function LookProductCard({ product }: { product: ShopifyProduct }) {
+function LookProductCard({ product }: { product: CatalogProductEdge }) {
   const p = product.node;
   const img = p.images.edges[0]?.node;
   const variant = p.variants.edges[0]?.node;
   const addItem = useCartStore((s) => s.addItem);
   const [adding, setAdding] = useState(false);
 
-  const handleAdd = async () => {
+  const handleAdd = () => {
     if (!variant) return;
     setAdding(true);
-    await addItem({
+    addItem({
       product: { id: p.id, title: p.title, handle: p.handle, images: p.images },
       variantId: variant.id,
       variantTitle: variant.title,

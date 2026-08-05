@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { X, Search, Loader2 } from "lucide-react";
-import { formatPrice, storefrontApiRequest } from "@/lib/shopify";
+import { formatPrice } from "@/lib/catalog";
+import { supabase } from "@/lib/supabase";
 
 interface Props {
   open: boolean;
@@ -16,19 +17,41 @@ interface Suggestion {
   price?: { amount: string; currencyCode: string };
 }
 
-const PREDICTIVE_QUERY = `
-  query Predict($query: String!) {
-    predictiveSearch(query: $query, limit: 6, types: PRODUCT) {
-      products {
-        id
-        title
-        handle
-        featuredImage { url altText }
-        priceRange { minVariantPrice { amount currencyCode } }
-      }
-    }
-  }
-`;
+async function searchProducts(query: string): Promise<Suggestion[]> {
+  if (!query.trim() || query.trim().length < 2) return [];
+
+  const { data: rawData } = await supabase
+    .from("products")
+    .select("id, handle, title, images, product_variants(price, currency_code)")
+    .eq("status", "active")
+    .ilike("title", `%${query}%`)
+    .limit(8);
+
+  if (!rawData) return [];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const data = rawData as any[];
+
+  return data.map((p: any) => {
+    const rawImages = (Array.isArray(p.images) ? p.images : []) as Array<{
+      url: string;
+      altText?: string | null;
+    }>;
+    const firstImg = rawImages[0];
+    const variants = Array.isArray(p.product_variants) ? p.product_variants : [];
+    const firstVariant = variants[0] as { price: number; currency_code: string } | undefined;
+
+    return {
+      id: p.id as string,
+      title: p.title as string,
+      handle: p.handle as string,
+      image: firstImg ? { url: firstImg.url, altText: firstImg.altText ?? null } : undefined,
+      price: firstVariant
+        ? { amount: String(firstVariant.price), currencyCode: firstVariant.currency_code }
+        : undefined,
+    };
+  });
+}
 
 export function SearchOverlay({ open, onClose }: Props) {
   const [q, setQ] = useState("");
@@ -59,23 +82,8 @@ export function SearchOverlay({ open, onClose }: Props) {
     const t = setTimeout(async () => {
       setLoading(true);
       try {
-        const data = await storefrontApiRequest(PREDICTIVE_QUERY, { query: q });
-        const products = data?.data?.predictiveSearch?.products ?? [];
-        setResults(
-          products.map((p: {
-            id: string;
-            title: string;
-            handle: string;
-            featuredImage: { url: string; altText: string | null } | null;
-            priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
-          }) => ({
-            id: p.id,
-            title: p.title,
-            handle: p.handle,
-            image: p.featuredImage ?? undefined,
-            price: p.priceRange.minVariantPrice,
-          })),
-        );
+        const found = await searchProducts(q);
+        setResults(found);
       } catch (e) {
         console.error("Search failed:", e);
       } finally {
@@ -161,7 +169,7 @@ export function SearchOverlay({ open, onClose }: Props) {
 
           {q.trim().length >= 2 && !loading && results.length === 0 && (
             <p className="text-sm text-muted-foreground mt-6">
-              Sin resultados para "{q}".
+              Sin resultados para &ldquo;{q}&rdquo;.
             </p>
           )}
         </div>

@@ -10,7 +10,7 @@ import {
   LookbookTeaser,
   MediumPromoBanner,
 } from "@/components/ronin/HomeSections";
-import { fetchProducts } from "@/lib/shopify";
+import { fetchProducts } from "@/lib/catalog";
 
 export const Route = createFileRoute("/")({
   head: () => ({

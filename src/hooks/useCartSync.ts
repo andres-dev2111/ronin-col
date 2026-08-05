@@ -1,14 +1,9 @@
-import { useEffect } from "react";
-import { useCartStore } from "@/stores/cartStore";
-
+/**
+ * useCartSync — previously synced cart with Shopify.
+ * Cart is now local-only (Zustand + localStorage), so no sync needed.
+ * This hook is kept as a no-op to avoid breaking imports elsewhere.
+ */
 export function useCartSync() {
-  const syncCart = useCartStore((s) => s.syncCart);
-  useEffect(() => {
-    syncCart();
-    const onVis = () => {
-      if (document.visibilityState === "visible") syncCart();
-    };
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-  }, [syncCart]);
+  // No-op: cart state lives in localStorage via Zustand persist middleware.
+  // No server sync required.
 }

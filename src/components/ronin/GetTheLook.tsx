@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { fetchProducts, formatPrice, type ShopifyProduct } from "@/lib/shopify";
+import { fetchProducts, formatPrice, type CatalogProductEdge } from "@/lib/catalog";
 import { useCartStore } from "@/stores/cartStore";
 import { WishlistButton } from "./WishlistButton";
 
@@ -65,7 +65,7 @@ export function GetTheLook({ heroImage, heroAlt = "Look Ronin", handle = "@RONIN
   );
 }
 
-function LookCard({ product }: { product: ShopifyProduct }) {
+function LookCard({ product }: { product: CatalogProductEdge }) {
   const p = product.node;
   const image = p.images.edges[0]?.node;
   const variant = p.variants.edges[0]?.node;
@@ -73,10 +73,10 @@ function LookCard({ product }: { product: ShopifyProduct }) {
   const addItem = useCartStore((s) => s.addItem);
   const [adding, setAdding] = useState(false);
 
-  const onAdd = async () => {
+  const onAdd = () => {
     if (!variant) return;
     setAdding(true);
-    await addItem({
+    addItem({
       product: { id: p.id, title: p.title, handle: p.handle, images: p.images },
       variantId: variant.id,
       variantTitle: variant.title,

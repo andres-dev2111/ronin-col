@@ -11,8 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LookbookRouteImport } from './routes/lookbook'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as CollectionsHandleRouteImport } from './routes/collections.$handle'
+import { Route as PedidoIdRouteImport } from './routes/pedido.$id'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminPedidoIdRouteImport } from './routes/admin/pedido.$id'
 
 const LookbookRoute = LookbookRouteImport.update({
   id: '/lookbook',
@@ -22,6 +27,11 @@ const LookbookRoute = LookbookRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsHandleRoute = ProductsHandleRouteImport.update({
@@ -34,44 +44,107 @@ const CollectionsHandleRoute = CollectionsHandleRouteImport.update({
   path: '/collections/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PedidoIdRoute = PedidoIdRouteImport.update({
+  id: '/pedido/$id',
+  path: '/pedido/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPedidoIdRoute = AdminPedidoIdRouteImport.update({
+  id: '/admin/pedido/$id',
+  path: '/admin/pedido/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/lookbook': typeof LookbookRoute
+  '/checkout': typeof CheckoutRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/pedido/$id': typeof PedidoIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pedido/$id': typeof AdminPedidoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/lookbook': typeof LookbookRoute
+  '/checkout': typeof CheckoutRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/pedido/$id': typeof PedidoIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pedido/$id': typeof AdminPedidoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/lookbook': typeof LookbookRoute
+  '/checkout': typeof CheckoutRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/pedido/$id': typeof PedidoIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pedido/$id': typeof AdminPedidoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/lookbook' | '/collections/$handle' | '/products/$handle'
+  fullPaths:
+    | '/'
+    | '/lookbook'
+    | '/checkout'
+    | '/collections/$handle'
+    | '/products/$handle'
+    | '/pedido/$id'
+    | '/admin/'
+    | '/admin/login'
+    | '/admin/pedido/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/lookbook' | '/collections/$handle' | '/products/$handle'
+  to:
+    | '/'
+    | '/lookbook'
+    | '/checkout'
+    | '/collections/$handle'
+    | '/products/$handle'
+    | '/pedido/$id'
+    | '/admin/'
+    | '/admin/login'
+    | '/admin/pedido/$id'
   id:
     | '__root__'
     | '/'
     | '/lookbook'
+    | '/checkout'
     | '/collections/$handle'
     | '/products/$handle'
+    | '/pedido/$id'
+    | '/admin/'
+    | '/admin/login'
+    | '/admin/pedido/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LookbookRoute: typeof LookbookRoute
+  CheckoutRoute: typeof CheckoutRoute
   CollectionsHandleRoute: typeof CollectionsHandleRoute
   ProductsHandleRoute: typeof ProductsHandleRoute
+  PedidoIdRoute: typeof PedidoIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminPedidoIdRoute: typeof AdminPedidoIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -90,6 +163,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/$handle': {
       id: '/products/$handle'
       path: '/products/$handle'
@@ -104,14 +184,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionsHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pedido/$id': {
+      id: '/pedido/$id'
+      path: '/pedido/$id'
+      fullPath: '/pedido/$id'
+      preLoaderRoute: typeof PedidoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/pedido/$id': {
+      id: '/admin/pedido/$id'
+      path: '/admin/pedido/$id'
+      fullPath: '/admin/pedido/$id'
+      preLoaderRoute: typeof AdminPedidoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LookbookRoute: LookbookRoute,
+  CheckoutRoute: CheckoutRoute,
   CollectionsHandleRoute: CollectionsHandleRoute,
   ProductsHandleRoute: ProductsHandleRoute,
+  PedidoIdRoute: PedidoIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminPedidoIdRoute: AdminPedidoIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

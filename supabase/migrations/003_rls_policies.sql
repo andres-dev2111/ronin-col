@@ -6,21 +6,25 @@
 -- ============================================================
 
 -- Política: cualquiera puede leer un pedido si conoce su UUID (confirmación post-compra)
+drop policy if exists "orders_public_read_by_id" on public.orders;
 create policy "orders_public_read_by_id" on public.orders
   for select
   using (true);  -- gated by knowing the UUID; refine later with signed tokens
 
 -- Política: cualquiera puede leer order_items de un pedido conocido
+drop policy if exists "order_items_public_read" on public.order_items;
 create policy "order_items_public_read" on public.order_items
   for select
   using (true);
 
 -- Política: cualquiera puede leer customers de un pedido conocido
+drop policy if exists "customers_public_read" on public.customers;
 create policy "customers_public_read" on public.customers
   for select
   using (true);
 
 -- Política: usuarios autenticados (admin) pueden actualizar estado de pedidos
+drop policy if exists "orders_auth_update" on public.orders;
 create policy "orders_auth_update" on public.orders
   for update
   to authenticated
@@ -28,16 +32,19 @@ create policy "orders_auth_update" on public.orders
   with check (true);
 
 -- Política: usuarios autenticados (admin) pueden leer todos los pedidos
+drop policy if exists "orders_auth_read_all" on public.orders;
 create policy "orders_auth_read_all" on public.orders
   for select
   to authenticated
   using (true);
 
+drop policy if exists "order_items_auth_read" on public.order_items;
 create policy "order_items_auth_read" on public.order_items
   for select
   to authenticated
   using (true);
 
+drop policy if exists "customers_auth_read" on public.customers;
 create policy "customers_auth_read" on public.customers
   for select
   to authenticated

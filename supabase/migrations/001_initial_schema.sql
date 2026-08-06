@@ -156,14 +156,17 @@ begin
 end;
 $$;
 
+drop trigger if exists trg_products_updated_at on public.products;
 create trigger trg_products_updated_at
   before update on public.products
   for each row execute function public.set_updated_at();
 
+drop trigger if exists trg_orders_updated_at on public.orders;
 create trigger trg_orders_updated_at
   before update on public.orders
   for each row execute function public.set_updated_at();
 
+drop trigger if exists trg_inventory_updated_at on public.inventory;
 create trigger trg_inventory_updated_at
   before update on public.inventory
   for each row execute function public.set_updated_at();
@@ -174,32 +177,43 @@ create trigger trg_inventory_updated_at
 
 -- Products: lectura pública, escritura solo service_role
 alter table public.products enable row level security;
+drop policy if exists "products_public_read" on public.products;
 create policy "products_public_read" on public.products for select using (status = 'active');
+drop policy if exists "products_service_write" on public.products;
 create policy "products_service_write" on public.products for all using (auth.role() = 'service_role');
 
 -- Product variants: lectura pública
 alter table public.product_variants enable row level security;
+drop policy if exists "variants_public_read" on public.product_variants;
 create policy "variants_public_read" on public.product_variants for select using (true);
+drop policy if exists "variants_service_write" on public.product_variants;
 create policy "variants_service_write" on public.product_variants for all using (auth.role() = 'service_role');
 
 -- Inventory: lectura pública (solo disponible), escritura service_role
 alter table public.inventory enable row level security;
+drop policy if exists "inventory_public_read" on public.inventory;
 create policy "inventory_public_read" on public.inventory for select using (true);
+drop policy if exists "inventory_service_write" on public.inventory;
 create policy "inventory_service_write" on public.inventory for all using (auth.role() = 'service_role');
 
 -- Shipping config: lectura pública
 alter table public.shipping_config enable row level security;
+drop policy if exists "shipping_public_read" on public.shipping_config;
 create policy "shipping_public_read" on public.shipping_config for select using (active = true);
+drop policy if exists "shipping_service_write" on public.shipping_config;
 create policy "shipping_service_write" on public.shipping_config for all using (auth.role() = 'service_role');
 
 -- Customers: solo service_role
 alter table public.customers enable row level security;
+drop policy if exists "customers_service_only" on public.customers;
 create policy "customers_service_only" on public.customers for all using (auth.role() = 'service_role');
 
 -- Orders: solo service_role
 alter table public.orders enable row level security;
+drop policy if exists "orders_service_only" on public.orders;
 create policy "orders_service_only" on public.orders for all using (auth.role() = 'service_role');
 
 -- Order items: solo service_role
 alter table public.order_items enable row level security;
+drop policy if exists "order_items_service_only" on public.order_items;
 create policy "order_items_service_only" on public.order_items for all using (auth.role() = 'service_role');
